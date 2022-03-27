@@ -4,6 +4,9 @@ using System.Linq.Expressions;
 
 namespace MvvmElegance;
 
+/// <summary>
+/// Provides the base class for validating models.
+/// </summary>
 public abstract class ValidatingModelBase : PropertyChangedBase, INotifyDataErrorInfo
 {
     private readonly Dictionary<string, List<string>?> _propertyErrors;
@@ -11,6 +14,10 @@ public abstract class ValidatingModelBase : PropertyChangedBase, INotifyDataErro
 
     private IModelValidator? _validator;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ValidatingModelBase" /> class with the specified validator.
+    /// </summary>
+    /// <param name="validator">The validator to use for validation.</param>
     protected ValidatingModelBase(IModelValidator? validator = null)
     {
         _propertyErrors = new Dictionary<string, List<string>?>();
@@ -23,6 +30,9 @@ public abstract class ValidatingModelBase : PropertyChangedBase, INotifyDataErro
         AutoValidate = true;
     }
 
+    /// <summary>
+    /// Gets or sets the validator to use for validation.
+    /// </summary>
     protected virtual IModelValidator? Validator
     {
         get => _validator;
@@ -33,8 +43,14 @@ public abstract class ValidatingModelBase : PropertyChangedBase, INotifyDataErro
         }
     }
 
+    /// <summary>
+    /// Gets or sets a boolean indicating whether automatic validation should be performed on property change.
+    /// </summary>
     protected bool AutoValidate { get; set; }
 
+    /// <summary>
+    /// Gets a boolean indicating whether the model has errors.
+    /// </summary>
     public virtual bool HasErrors
     {
         get
@@ -52,8 +68,16 @@ public abstract class ValidatingModelBase : PropertyChangedBase, INotifyDataErro
         }
     }
 
+    /// <summary>
+    /// An event that is raised when the errors of the model have changed.
+    /// </summary>
     public event EventHandler<DataErrorsChangedEventArgs>? ErrorsChanged;
 
+    /// <summary>
+    /// Returns the errors for a specified property or the entire model.
+    /// </summary>
+    /// <param name="propertyName">The name of the property to return errors for or <c>null</c> for the entire model.</param>
+    /// <returns>A collection of errors for the specified property or the entire model or <c>null</c> if there are none.</returns>
     public virtual IEnumerable? GetErrors(string? propertyName)
     {
         _propertyErrorsLock.Wait();
@@ -70,6 +94,12 @@ public abstract class ValidatingModelBase : PropertyChangedBase, INotifyDataErro
         }
     }
 
+    /// <summary>
+    /// Validates the model and its properties.
+    /// </summary>
+    /// <param name="cancellationToken">The cancellation token used to cancel the operation.</param>
+    /// <returns>A task representing the asynchronous operation, with a boolean indicating whether the model has errors.</returns>
+    /// <exception cref="InvalidOperationException">There is no validator set for the model.</exception>
     protected virtual async Task<bool> ValidateAsync(CancellationToken cancellationToken = default)
     {
         if (Validator == null)
@@ -132,6 +162,13 @@ public abstract class ValidatingModelBase : PropertyChangedBase, INotifyDataErro
         return !HasErrors;
     }
 
+    /// <summary>
+    /// Validates the property with the specified name.
+    /// </summary>
+    /// <param name="propertyName">The name of the property to validate.</param>
+    /// <param name="cancellationToken">The cancellation token used to cancel the operation.</param>
+    /// <returns>A task representing the asynchronous operation, with a boolean indicating whether the property has errors.</returns>
+    /// <exception cref="InvalidOperationException">There is no validator set for the model.</exception>
     protected virtual async Task<bool> ValidatePropertyAsync(string? propertyName,
         CancellationToken cancellationToken = default)
     {
@@ -176,22 +213,44 @@ public abstract class ValidatingModelBase : PropertyChangedBase, INotifyDataErro
         return newErrors == null || newErrors.Count == 0;
     }
 
+    /// <summary>
+    /// Validates the property of the specified expression.
+    /// </summary>
+    /// <param name="propertyExpr">The expression containing the property to validate.</param>
+    /// <param name="cancellationToken">The cancellation token used to cancel the operation.</param>
+    /// <typeparam name="TProperty">The type of the specified property.</typeparam>
+    /// <returns>A task representing the asynchronous operation, with a boolean indicating whether the property has errors.</returns>
+    /// <exception cref="InvalidOperationException">There is no validator set for the model.</exception>
     protected virtual Task<bool> ValidatePropertyAsync<TProperty>(Expression<Func<TProperty>> propertyExpr,
         CancellationToken cancellationToken = default)
     {
         return ValidatePropertyAsync(propertyExpr.GetPropertyName(), cancellationToken);
     }
 
+    /// <summary>
+    /// Raises the <see cref="ErrorsChanged" /> event with the specified property name.
+    /// </summary>
+    /// <param name="propertyName">The name of the property with changed errors.</param>
     protected virtual void RaiseErrorsChanged(string? propertyName)
     {
         OnErrorsChanged(new DataErrorsChangedEventArgs(propertyName));
     }
 
+    /// <summary>
+    /// Raises the <see cref="ErrorsChanged" /> event with the name of the property of the specified expression.
+    /// </summary>
+    /// <param name="propertyExpr">The expression containing the property with changed errors.</param>
+    /// <typeparam name="TProperty">The type of the specified property.</typeparam>
     protected virtual void RaiseErrorsChanged<TProperty>(Expression<Func<TProperty>> propertyExpr)
     {
         RaiseErrorsChanged(propertyExpr.GetPropertyName());
     }
 
+    /// <summary>
+    /// Raises the <see cref="PropertyChangedBase.PropertyChanged" /> event for <see cref="HasErrors" /> and raises the
+    /// <see cref="ErrorsChanged" /> event for the specified changed properties.
+    /// </summary>
+    /// <param name="changedProperties">The collection of names of the properties with changed errors.</param>
     protected virtual void OnValidationStateChanged(IEnumerable<string> changedProperties)
     {
         RaisePropertyChanged(nameof(HasErrors));
@@ -202,11 +261,16 @@ public abstract class ValidatingModelBase : PropertyChangedBase, INotifyDataErro
         }
     }
 
+    /// <summary>
+    /// Raises the <see cref="ErrorsChanged" /> event with the specified arguments.
+    /// </summary>
+    /// <param name="e">The arguments of the event.</param>
     protected virtual void OnErrorsChanged(DataErrorsChangedEventArgs e)
     {
         ErrorsChanged?.Invoke(this, e);
     }
 
+    /// <inheritdoc />
     protected override async void OnPropertyChanged(PropertyChangedEventArgs e)
     {
         base.OnPropertyChanged(e);
