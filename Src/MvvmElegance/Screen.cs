@@ -3,8 +3,7 @@ namespace MvvmElegance;
 /// <summary>
 /// Provides an implementation of all expected behaviors of a screen.
 /// </summary>
-// TODO: Make 'Screen' inherit from 'ValidatingModelBase' when it has been created.
-public class Screen : PropertyChangedBase, IScreen
+public class Screen : ValidatingModelBase, IScreen
 {
     private bool _isInitialized;
     private ScreenState _state;
