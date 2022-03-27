@@ -284,7 +284,7 @@ public abstract class ValidatingModelBase : PropertyChangedBase, INotifyDataErro
 
     private static bool AreErrorsEqual(IEnumerable<string>? left, IEnumerable<string>? right)
     {
-        if (left == null ^ right == null)
+        if ((left == null) ^ (right == null))
         {
             return false;
         }
