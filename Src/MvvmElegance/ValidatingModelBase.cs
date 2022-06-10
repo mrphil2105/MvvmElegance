@@ -289,6 +289,6 @@ public abstract class ValidatingModelBase : PropertyChangedBase, INotifyDataErro
             return false;
         }
 
-        return left == null || left.SequenceEqual(right!);
+        return left?.SequenceEqual(right!) != false;
     }
 }
