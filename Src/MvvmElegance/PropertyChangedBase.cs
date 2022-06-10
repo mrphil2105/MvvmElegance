@@ -58,8 +58,8 @@ public abstract class PropertyChangedBase : INotifyPropertyChanged
         FieldInfo? targetField = null;
 
         if (targetExpr.Body is not MemberExpression memberExpr ||
-            (targetProperty = memberExpr.Member as PropertyInfo) is null &&
-            (targetField = memberExpr.Member as FieldInfo) is null)
+            ((targetProperty = memberExpr.Member as PropertyInfo) is null &&
+                (targetField = memberExpr.Member as FieldInfo) is null))
         {
             throw new ArgumentException("Value must contain a body that is a member expression.", nameof(targetExpr));
         }
