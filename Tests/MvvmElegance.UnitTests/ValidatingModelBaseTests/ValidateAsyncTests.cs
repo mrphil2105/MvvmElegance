@@ -247,7 +247,7 @@ public class ValidateAsyncTests
         validatorMock.Setup(v => v.ValidateAsync(default))
             .ReturnsAsync(errors);
 
-        bool isValid = await model.ValidateAsync();
+        var isValid = await model.ValidateAsync();
 
         isValid.Should()
             .BeFalse();
@@ -262,7 +262,7 @@ public class ValidateAsyncTests
         validatorMock.Setup(v => v.ValidateAsync(default))
             .ReturnsAsync(nonErrors);
 
-        bool isValid = await model.ValidateAsync();
+        var isValid = await model.ValidateAsync();
 
         isValid.Should()
             .BeTrue();

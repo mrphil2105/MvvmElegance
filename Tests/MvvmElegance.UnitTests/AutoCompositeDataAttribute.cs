@@ -29,7 +29,7 @@ public class AutoCompositeDataAttribute : DataAttribute
             object[]? autoData = _autoDataAttribute.GetData(testMethod)
                 .ToList()[0];
 
-            for (int i = 0; i < datum.Length; i++)
+            for (var i = 0; i < datum.Length; i++)
             {
                 autoData[i] = datum[i];
             }

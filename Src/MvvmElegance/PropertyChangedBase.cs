@@ -64,7 +64,7 @@ public abstract class PropertyChangedBase : INotifyPropertyChanged
             throw new ArgumentException("Value must contain a body that is a member expression.", nameof(targetExpr));
         }
 
-        if (!TryGetMemberOwner(memberExpr, out object? owner))
+        if (!TryGetMemberOwner(memberExpr, out var owner))
         {
             throw new ArgumentException("Value must contain a body that is a member expression.", nameof(targetExpr));
         }

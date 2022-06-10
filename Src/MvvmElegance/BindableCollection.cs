@@ -65,10 +65,10 @@ public class BindableCollection<T> : ObservableCollection<T>
             throw new ArgumentNullException(nameof(items));
         }
 
-        bool previousShouldNotify = _shouldNotify;
+        var previousShouldNotify = _shouldNotify;
         _shouldNotify = false;
 
-        int startingIndex = index;
+        var startingIndex = index;
 
         foreach (var item in items)
         {
@@ -126,10 +126,10 @@ public class BindableCollection<T> : ObservableCollection<T>
                 return;
         }
 
-        bool previousShouldNotify = _shouldNotify;
+        var previousShouldNotify = _shouldNotify;
         _shouldNotify = false;
 
-        for (int i = index + count - 1; i >= index; i--)
+        for (var i = index + count - 1; i >= index; i--)
         {
             RemoveItem(i);
         }
@@ -155,13 +155,13 @@ public class BindableCollection<T> : ObservableCollection<T>
             throw new ArgumentNullException(nameof(predicate));
         }
 
-        bool previousShouldNotify = _shouldNotify;
+        var previousShouldNotify = _shouldNotify;
         _shouldNotify = false;
 
-        int removeCount = 0;
-        int startingIndex = int.MaxValue;
+        var removeCount = 0;
+        var startingIndex = int.MaxValue;
 
-        for (int i = Count - 1; i >= 0; i--)
+        for (var i = Count - 1; i >= 0; i--)
         {
             if (!predicate(this[i]))
             {

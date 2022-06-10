@@ -234,7 +234,7 @@ public class ValidatePropertyAsyncTests
         validatorMock.Setup(v => v.ValidatePropertyAsync(propertyName, default))
             .ReturnsAsync(errors);
 
-        bool isValid = await model.ValidatePropertyAsync(propertyName);
+        var isValid = await model.ValidatePropertyAsync(propertyName);
 
         isValid.Should()
             .BeFalse();
@@ -248,7 +248,7 @@ public class ValidatePropertyAsyncTests
         validatorMock.Setup(v => v.ValidatePropertyAsync(propertyName, default))
             .ReturnsAsync(nonErrors);
 
-        bool isValid = await model.ValidatePropertyAsync(propertyName);
+        var isValid = await model.ValidatePropertyAsync(propertyName);
 
         isValid.Should()
             .BeTrue();

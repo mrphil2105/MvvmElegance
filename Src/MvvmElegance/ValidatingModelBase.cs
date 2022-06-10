@@ -120,7 +120,7 @@ public abstract class ValidatingModelBase : PropertyChangedBase, INotifyDataErro
             {
                 foreach (var kvp in result)
                 {
-                    string propertyName = kvp.Key ?? string.Empty;
+                    var propertyName = kvp.Key ?? string.Empty;
                     var newErrors = kvp.Value?.ToList();
 
                     if (!_propertyErrors.ContainsKey(propertyName))
@@ -143,7 +143,7 @@ public abstract class ValidatingModelBase : PropertyChangedBase, INotifyDataErro
             var removedProperties = _propertyErrors.Keys.Except(result?.Keys ?? Enumerable.Empty<string>())
                 .ToList();
 
-            foreach (string propertyName in removedProperties)
+            foreach (var propertyName in removedProperties)
             {
                 _propertyErrors.Remove(propertyName);
                 changedProperties.Add(propertyName);
@@ -182,7 +182,7 @@ public abstract class ValidatingModelBase : PropertyChangedBase, INotifyDataErro
         var result = await Validator.ValidatePropertyAsync(propertyName, cancellationToken)
             .ConfigureAwait(false);
         var newErrors = result?.ToList();
-        bool haveErrorsChanged = false;
+        var haveErrorsChanged = false;
 
         await _propertyErrorsLock.WaitAsync(cancellationToken)
             .ConfigureAwait(false);
@@ -255,7 +255,7 @@ public abstract class ValidatingModelBase : PropertyChangedBase, INotifyDataErro
     {
         RaisePropertyChanged(nameof(HasErrors));
 
-        foreach (string propertyName in changedProperties)
+        foreach (var propertyName in changedProperties)
         {
             RaiseErrorsChanged(propertyName);
         }

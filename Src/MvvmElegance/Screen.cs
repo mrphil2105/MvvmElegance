@@ -164,7 +164,7 @@ public class Screen : ValidatingModelBase, IScreen
             return;
         }
 
-        bool hasInitialized = false;
+        var hasInitialized = false;
 
         if (!IsInitialized)
         {
