@@ -4,15 +4,26 @@ using System.ComponentModel;
 
 namespace MvvmElegance;
 
+/// <summary>
+/// Provides a collection that notifies when it is changed.
+/// </summary>
+/// <typeparam name="T">The type of elements in the collection.</typeparam>
 public class BindableCollection<T> : ObservableCollection<T>
 {
     private bool _shouldNotify;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="BindableCollection{T}" /> class.
+    /// </summary>
     public BindableCollection()
     {
         _shouldNotify = true;
     }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="BindableCollection{T}" /> class with the elements of the specified collection.
+    /// </summary>
+    /// <param name="items">The collection with the elements to add.</param>
     public BindableCollection(IEnumerable<T> items) : base(items)
     {
         _shouldNotify = true;
@@ -20,11 +31,23 @@ public class BindableCollection<T> : ObservableCollection<T>
 
     internal event EventHandler? BeforeReset;
 
+    /// <summary>
+    /// Adds the elements of the specified collection to the end of the <see cref="BindableCollection{T}" />.
+    /// </summary>
+    /// <param name="items">The collection with the elements to add.</param>
+    /// <exception cref="ArgumentNullException">Value of parameter <paramref name="items" /> is <c>null</c>.</exception>
     public void AddRange(IEnumerable<T> items)
     {
         InsertRange(Count, items);
     }
 
+    /// <summary>
+    /// Inserts the elements of the specified collection at the specified index of the <see cref="BindableCollection{T}" />.
+    /// </summary>
+    /// <param name="index">The index to insert at.</param>
+    /// <param name="items">The collection with the elements to add.</param>
+    /// <exception cref="ArgumentOutOfRangeException">Value of parameter <paramref name="index" /> is negative or out of bounds.</exception>
+    /// <exception cref="ArgumentNullException">Value of parameter <paramref name="items" /> is <c>null</c>.</exception>
     public void InsertRange(int index, IEnumerable<T> items)
     {
         if (index < 0)
@@ -66,6 +89,16 @@ public class BindableCollection<T> : ObservableCollection<T>
         OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
     }
 
+    /// <summary>
+    /// Removes a range of elements from the <see cref="BindableCollection{T}" />.
+    /// </summary>
+    /// <param name="index">The starting index of the elements to remove.</param>
+    /// <param name="count">The number of elements to remove.</param>
+    /// <exception cref="ArgumentOutOfRangeException">Value of parameter <paramref name="index" /> or <paramref name="count" /> is negative.</exception>
+    /// <exception cref="ArgumentException">
+    /// Sum of the values of parameters <paramref name="index" /> and <paramref name="count" /> is larger than the number of elements in the
+    /// <see cref="BindableCollection{T}" />.
+    /// </exception>
     public void RemoveRange(int index, int count)
     {
         if (index < 0)
@@ -109,6 +142,12 @@ public class BindableCollection<T> : ObservableCollection<T>
         OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
     }
 
+    /// <summary>
+    /// Removes elements from the <see cref="BindableCollection{T}" /> based on the specified predicate.
+    /// </summary>
+    /// <param name="predicate">The predicate that defines the condition.</param>
+    /// <returns>A number indicating the amount of removed elements.</returns>
+    /// <exception cref="ArgumentNullException">Value of parameter <paramref name="predicate" /> is <c>null</c>.</exception>
     public int RemoveAll(Func<T, bool> predicate)
     {
         if (predicate is null)
@@ -149,12 +188,17 @@ public class BindableCollection<T> : ObservableCollection<T>
         return removeCount;
     }
 
+    /// <inheritdoc />
     protected override void ClearItems()
     {
         BeforeReset?.Invoke(this, EventArgs.Empty);
         base.ClearItems();
     }
 
+    /// <summary>
+    /// Raises the <see cref="ObservableCollection{T}.CollectionChanged" /> event with the specified arguments.
+    /// </summary>
+    /// <param name="e">The arguments of the event.</param>
     protected override void OnCollectionChanged(NotifyCollectionChangedEventArgs e)
     {
         if (_shouldNotify)
@@ -163,6 +207,10 @@ public class BindableCollection<T> : ObservableCollection<T>
         }
     }
 
+    /// <summary>
+    /// Raises the <see cref="ObservableCollection{T}.PropertyChanged" /> event with the specified arguments.
+    /// </summary>
+    /// <param name="e">The arguments of the event.</param>
     protected override void OnPropertyChanged(PropertyChangedEventArgs e)
     {
         if (_shouldNotify)
