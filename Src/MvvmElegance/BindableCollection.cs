@@ -65,6 +65,8 @@ public class BindableCollection<T> : ObservableCollection<T>
             throw new ArgumentNullException(nameof(items));
         }
 
+        BeforeReset?.Invoke(this, EventArgs.Empty);
+
         var previousShouldNotify = _shouldNotify;
         _shouldNotify = false;
 
@@ -126,6 +128,8 @@ public class BindableCollection<T> : ObservableCollection<T>
                 return;
         }
 
+        BeforeReset?.Invoke(this, EventArgs.Empty);
+
         var previousShouldNotify = _shouldNotify;
         _shouldNotify = false;
 
@@ -154,6 +158,8 @@ public class BindableCollection<T> : ObservableCollection<T>
         {
             throw new ArgumentNullException(nameof(predicate));
         }
+
+        BeforeReset?.Invoke(this, EventArgs.Empty);
 
         var previousShouldNotify = _shouldNotify;
         _shouldNotify = false;
