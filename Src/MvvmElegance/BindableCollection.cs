@@ -31,6 +31,10 @@ public class BindableCollection<T> : ObservableCollection<T>
 
     internal event EventHandler? BeforeReset;
 
+    // Used to inform conductors that no reset event is being raised, even though 'BeforeReset' was raised.
+    // This allows collection conductors to clear their '_itemsBeforeReset' list.
+    internal event EventHandler? NoReset;
+
     /// <summary>
     /// Adds the elements of the specified collection to the end of the <see cref="BindableCollection{T}" />.
     /// </summary>
@@ -82,6 +86,8 @@ public class BindableCollection<T> : ObservableCollection<T>
 
         if (index == startingIndex)
         {
+            NoReset?.Invoke(this, EventArgs.Empty);
+
             return;
         }
 
@@ -183,6 +189,8 @@ public class BindableCollection<T> : ObservableCollection<T>
 
         if (startingIndex == int.MaxValue)
         {
+            NoReset?.Invoke(this, EventArgs.Empty);
+
             return removeCount;
         }
 
