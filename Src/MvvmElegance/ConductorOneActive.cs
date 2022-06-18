@@ -18,6 +18,7 @@ public partial class Conductor<T>
                 Items = new BindableCollection<T>();
                 Items.CollectionChanged += OnCollectionChanged;
                 Items.BeforeReset += OnBeforeReset;
+                Items.NoReset += OnNoReset;
             }
 
             public BindableCollection<T> Items { get; }
@@ -193,6 +194,12 @@ public partial class Conductor<T>
             private void OnBeforeReset(object? sender, EventArgs e)
             {
                 _itemsBeforeReset = Items.ToList();
+            }
+
+            private void OnNoReset(object? sender, EventArgs e)
+            {
+                // Set the list to null to prevent unintentionally holding on to unwanted references.
+                _itemsBeforeReset = null;
             }
         }
     }
