@@ -168,10 +168,15 @@ public partial class Conductor<T>
                     case NotifyCollectionChangedAction.Replace:
                         _removedIndex = e.OldStartingIndex;
 
+                        var oldItems = e.OldItems.Cast<T>()
+                            .ToList();
+                        var newItems = e.NewItems.Cast<T>()
+                            .ToList();
+
                         await ReplaceActiveItemIfNeededAsync();
-                        // Items may be replaced with themselves, which causes a close/cleanup followed by a reactivation.
-                        await this.TryCloseAndCleanUpAsync(e.OldItems, DisposeChildren);
-                        await this.SetParentAndSetActiveAsync(e.NewItems, false);
+                        // Items may be replaced with themselves, so prevent a close/cleanup followed by a reactivation.
+                        await this.TryCloseAndCleanUpAsync(oldItems.Except(newItems), DisposeChildren);
+                        await this.SetParentAndSetActiveAsync(newItems.Except(oldItems), false);
 
                         break;
                     case NotifyCollectionChangedAction.Reset:
