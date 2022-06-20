@@ -6,13 +6,22 @@ namespace MvvmElegance;
 public partial class Conductor<T>
     where T : class
 {
+    /// <summary>
+    /// Provides the parent class for all collection conductors.
+    /// </summary>
     public partial class Collection
     {
+        /// <summary>
+        /// Provides a collection conductor with one active item.
+        /// </summary>
         public class OneActive : ConductorBaseWithActiveItem<T>
         {
             private List<T>? _itemsBeforeReset;
             private int _removedIndex;
 
+            /// <summary>
+            /// Initializes a new instance of the <see cref="OneActive" /> class.
+            /// </summary>
             public OneActive()
             {
                 Items = new BindableCollection<T>();
@@ -21,8 +30,17 @@ public partial class Conductor<T>
                 Items.NoReset += OnNoReset;
             }
 
+            /// <summary>
+            /// Gets the items as an observable collection.
+            /// </summary>
             public BindableCollection<T> Items { get; }
 
+            /// <summary>
+            /// Activates the specified item, sets it as the active item and adds it to the <see cref="Items" /> list, if applicable.
+            /// </summary>
+            /// <param name="item">The item to activate and set as active item.</param>
+            /// <param name="cancellationToken">The cancellation token used to cancel the operation.</param>
+            /// <returns>A task representing the asynchronous operation.</returns>
             public override Task ActivateItemAsync(T? item, CancellationToken cancellationToken = default)
             {
                 if (item != null && EqualityComparer<T?>.Default.Equals(item, ActiveItem))
@@ -35,6 +53,12 @@ public partial class Conductor<T>
                 return ChangeActiveItemAsync(item, false, cancellationToken);
             }
 
+            /// <summary>
+            /// Deactivates the specified item and removes it as the active item, if applicable.
+            /// </summary>
+            /// <param name="item">The item to deactivate.</param>
+            /// <param name="cancellationToken">The cancellation token used to cancel the operation.</param>
+            /// <returns>A task representing the asynchronous operation.</returns>
             public override Task DeactivateItemAsync(T? item, CancellationToken cancellationToken = default)
             {
                 if (item == null)
@@ -52,6 +76,12 @@ public partial class Conductor<T>
                 return ChangeActiveItemAsync(nextItem, false, cancellationToken);
             }
 
+            /// <summary>
+            /// Closes the specified item and removes it as the active item and from the <see cref="Items" /> list, if applicable.
+            /// </summary>
+            /// <param name="item">The item to close.</param>
+            /// <param name="cancellationToken">The cancellation token used to cancel the operation.</param>
+            /// <returns>A task representing the asynchronous operation.</returns>
             public override async Task CloseItemAsync(T? item, CancellationToken cancellationToken = default)
             {
                 if (item == null || !await CanCloseItemAsync(item, cancellationToken))
@@ -73,16 +103,22 @@ public partial class Conductor<T>
                 }
             }
 
+            /// <inheritdoc />
             public override IEnumerable<T> GetChildren()
             {
                 return Items;
             }
 
+            /// <inheritdoc />
             public override Task<bool> CanCloseAsync(CancellationToken cancellationToken = default)
             {
                 return CanCloseAllItemsAsync(Items, cancellationToken);
             }
 
+            /// <summary>
+            /// Ensures the specified item is ready for activation/deactivation by adding it to the <see cref="Items" /> list and setting the parent.
+            /// </summary>
+            /// <param name="item">The item to ensure.</param>
             protected override void EnsureItem(T? item)
             {
                 if (item != null && !Items.Contains(item))
@@ -93,6 +129,7 @@ public partial class Conductor<T>
                 base.EnsureItem(item);
             }
 
+            /// <inheritdoc />
             protected override Task OnCloseAsync(CancellationToken cancellationToken = default)
             {
                 // Clearing 'Items' causes all items to be closed.
@@ -101,6 +138,11 @@ public partial class Conductor<T>
                 return Task.CompletedTask;
             }
 
+            /// <summary>
+            /// Gets the next item to activate given the specified previous active item.
+            /// </summary>
+            /// <param name="item">The previous active item.</param>
+            /// <returns>An item to set as the active item.</returns>
             protected virtual T? GetNextItemToActivate(T? item)
             {
                 // We cannot simply use 'Items.Count <= 1' here instead of 'Items.Count == 0' and 'Items.Count == 1',
@@ -127,6 +169,9 @@ public partial class Conductor<T>
                 return index == 0 ? Items[0] : Items[index - 1];
             }
 
+            /// <summary>
+            /// Called when the active item may need replacing when the <see cref="Items" /> list has been modified.
+            /// </summary>
             protected virtual async Task ReplaceActiveItemIfNeededAsync()
             {
                 // The active item may have been removed.
