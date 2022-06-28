@@ -7,10 +7,16 @@ public partial class Conductor<T>
 {
     public partial class Collection
     {
+        /// <summary>
+        /// Provides a collection conductor with all active items.
+        /// </summary>
         public class AllActive : ConductorBase<T>
         {
             private List<T>? _itemsBeforeReset;
 
+            /// <summary>
+            /// Initializes a new instance of the <see cref="AllActive" /> class.
+            /// </summary>
             public AllActive()
             {
                 Items = new BindableCollection<T>();
@@ -19,8 +25,17 @@ public partial class Conductor<T>
                 Items.NoReset += OnNoReset;
             }
 
+            /// <summary>
+            /// Gets the items as an observable collection.
+            /// </summary>
             public BindableCollection<T> Items { get; }
 
+            /// <summary>
+            /// Activates the specified item and adds it to the <see cref="Items" /> list, if applicable.
+            /// </summary>
+            /// <param name="item">The item to activate.</param>
+            /// <param name="cancellationToken">The cancellation token used to cancel the operation.</param>
+            /// <returns>A task representing the asynchronous operation.</returns>
             public override async Task ActivateItemAsync(T? item, CancellationToken cancellationToken = default)
             {
                 if (item == null)
@@ -40,11 +55,18 @@ public partial class Conductor<T>
                 }
             }
 
+            /// <inheritdoc />
             public override Task DeactivateItemAsync(T? item, CancellationToken cancellationToken = default)
             {
                 return ScreenExtensions.TryDeactivateAsync(item, cancellationToken);
             }
 
+            /// <summary>
+            /// Closes the specified item and removes it from the <see cref="Items" /> list, if applicable.
+            /// </summary>
+            /// <param name="item">The item to close.</param>
+            /// <param name="cancellationToken">The cancellation token used to cancel the operation.</param>
+            /// <returns>A task representing the asynchronous operation.</returns>
             public override async Task CloseItemAsync(T? item, CancellationToken cancellationToken = default)
             {
                 if (item == null || !await CanCloseItemAsync(item, cancellationToken))
@@ -59,16 +81,22 @@ public partial class Conductor<T>
                 }
             }
 
+            /// <inheritdoc />
             public override IEnumerable<T> GetChildren()
             {
                 return Items;
             }
 
+            /// <inheritdoc />
             public override Task<bool> CanCloseAsync(CancellationToken cancellationToken = default)
             {
                 return CanCloseAllItemsAsync(Items, cancellationToken);
             }
 
+            /// <summary>
+            /// Ensures the specified item is ready for activation/deactivation by adding it to the <see cref="Items" /> list and setting the parent.
+            /// </summary>
+            /// <param name="item">The item to ensure.</param>
             protected override void EnsureItem(T? item)
             {
                 if (item != null && !Items.Contains(item))
@@ -79,6 +107,7 @@ public partial class Conductor<T>
                 base.EnsureItem(item);
             }
 
+            /// <inheritdoc />
             protected override Task OnActivateAsync(CancellationToken cancellationToken = default)
             {
                 var tasks = Items.Select(i => ScreenExtensions.TryActivateAsync(i, cancellationToken))
@@ -87,6 +116,7 @@ public partial class Conductor<T>
                 return Task.WhenAll(tasks);
             }
 
+            /// <inheritdoc />
             protected override Task OnDeactivateAsync(CancellationToken cancellationToken = default)
             {
                 var tasks = Items.Select(i => ScreenExtensions.TryDeactivateAsync(i, cancellationToken))
@@ -95,6 +125,7 @@ public partial class Conductor<T>
                 return Task.WhenAll(tasks);
             }
 
+            /// <inheritdoc />
             protected override Task OnCloseAsync(CancellationToken cancellationToken = default)
             {
                 // Clearing 'Items' causes all items to be closed.
