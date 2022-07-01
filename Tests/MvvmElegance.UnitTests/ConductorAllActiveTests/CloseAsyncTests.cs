@@ -1,3 +1,6 @@
+using System.Reflection;
+using Moq;
+
 namespace MvvmElegance.UnitTests.ConductorAllActiveTests;
 
 public class CloseAsyncTests
@@ -38,5 +41,34 @@ public class CloseAsyncTests
 
         conductor.Items.Should()
             .BeEmpty();
+    }
+
+    [Theory]
+    [AutoMoqData]
+    public async Task CloseAsync_CallsDispose_WhenDisposeChildrenIsTrue(List<Mock<IDisposable>> disposableMocks,
+        Conductor<IDisposable>.Collection.AllActive conductor)
+    {
+        conductor.Items.AddRange(disposableMocks.Select(m => m.Object));
+
+        await ScreenExtensions.TryCloseAsync(conductor);
+
+        disposableMocks.Should()
+            .AllSatisfy(m => m.Verify(d => d.Dispose(), Times.Once));
+    }
+
+    [Theory]
+    [AutoMoqData]
+    public async Task CloseAsync_DoesNotCallDispose_WhenDisposeChildrenIsFalse(List<Mock<IDisposable>> disposableMocks,
+        Conductor<IDisposable>.Collection.AllActive conductor)
+    {
+        var property = conductor.GetType()
+            .GetProperty("DisposeChildren", BindingFlags.Instance | BindingFlags.NonPublic);
+        property!.SetValue(conductor, false);
+        conductor.Items.AddRange(disposableMocks.Select(m => m.Object));
+
+        await ScreenExtensions.TryCloseAsync(conductor);
+
+        disposableMocks.Should()
+            .AllSatisfy(m => m.Verify(d => d.Dispose(), Times.Never));
     }
 }

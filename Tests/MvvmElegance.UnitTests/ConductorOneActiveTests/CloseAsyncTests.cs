@@ -1,3 +1,6 @@
+using System.Reflection;
+using Moq;
+
 namespace MvvmElegance.UnitTests.ConductorOneActiveTests;
 
 public class CloseAsyncTests
@@ -38,6 +41,19 @@ public class CloseAsyncTests
 
     [Theory]
     [AutoData]
+    public async Task CloseAsync_ClearsItemsParent(Conductor<Screen>.Collection.OneActive conductor,
+        List<Screen> screens)
+    {
+        conductor.Items.AddRange(screens);
+
+        await ScreenExtensions.TryCloseAsync(conductor);
+
+        screens.Should()
+            .OnlyContain(s => s.Parent == null);
+    }
+
+    [Theory]
+    [AutoData]
     public async Task CloseAsync_ClearsItems(Conductor<object>.Collection.OneActive conductor,
         IEnumerable<object> items)
     {
@@ -47,5 +63,34 @@ public class CloseAsyncTests
 
         conductor.Items.Should()
             .BeEmpty();
+    }
+
+    [Theory]
+    [AutoMoqData]
+    public async Task CloseAsync_CallsDispose_WhenDisposeChildrenIsTrue(List<Mock<IDisposable>> disposableMocks,
+        Conductor<IDisposable>.Collection.OneActive conductor)
+    {
+        conductor.Items.AddRange(disposableMocks.Select(m => m.Object));
+
+        await ScreenExtensions.TryCloseAsync(conductor);
+
+        disposableMocks.Should()
+            .AllSatisfy(m => m.Verify(d => d.Dispose(), Times.Once));
+    }
+
+    [Theory]
+    [AutoMoqData]
+    public async Task CloseAsync_DoesNotCallDispose_WhenDisposeChildrenIsFalse(List<Mock<IDisposable>> disposableMocks,
+        Conductor<IDisposable>.Collection.OneActive conductor)
+    {
+        var property = conductor.GetType()
+            .GetProperty("DisposeChildren", BindingFlags.Instance | BindingFlags.NonPublic);
+        property!.SetValue(conductor, false);
+        conductor.Items.AddRange(disposableMocks.Select(m => m.Object));
+
+        await ScreenExtensions.TryCloseAsync(conductor);
+
+        disposableMocks.Should()
+            .AllSatisfy(m => m.Verify(d => d.Dispose(), Times.Never));
     }
 }
