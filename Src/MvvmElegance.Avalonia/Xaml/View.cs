@@ -7,10 +7,7 @@ namespace MvvmElegance.Xaml;
 /// </summary>
 public static class View
 {
-    /// <summary>
-    /// Key used to retrieve the view manager from the application resources.
-    /// </summary>
-    public const string ViewManagerResourceKey = "616a1a03-5622-4cb7-bc41-6cfc5c42147e";
+    internal const string ViewManagerResourceKey = "616a1a03-5622-4cb7-bc41-6cfc5c42147e";
 
     static View()
     {
