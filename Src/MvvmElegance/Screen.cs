@@ -1,3 +1,5 @@
+using MvvmElegance.Internal;
+
 namespace MvvmElegance;
 
 /// <summary>
@@ -85,9 +87,21 @@ public class Screen : ValidatingModelBase, IScreen
     }
 
     /// <inheritdoc />
-    public virtual Task<bool> TryCloseAsync(bool? dialogResult = null, CancellationToken cancellationToken = default)
+    public virtual async Task<bool> TryCloseAsync(bool? dialogResult = null,
+        CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        // Check if the 'Screen' is owned by an 'IConductor'.
+        if (Parent is IConductor conductor)
+        {
+            await conductor.CloseItemAsync(this, cancellationToken);
+        }
+        else
+        {
+            // The 'Screen' owns itself.
+            ViewManager.Current.CloseView(this, dialogResult);
+        }
+
+        return IsClosed;
     }
 
     /// <summary>
