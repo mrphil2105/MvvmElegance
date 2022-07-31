@@ -26,6 +26,7 @@ public partial class ViewService : IViewService
     }
 
     /// <inheritdoc />
+    /// <exception cref="ArgumentNullException">Value of parameter <paramref name="model" /> is <c>null</c>.</exception>
     public Task ShowAsync(object? ownerModel, object model)
     {
         if (model is null)
@@ -55,6 +56,7 @@ public partial class ViewService : IViewService
     }
 
     /// <inheritdoc />
+    /// <exception cref="ArgumentNullException">Value of parameter <paramref name="model" /> is <c>null</c>.</exception>
     public Task<bool?> ShowDialogAsync(object? ownerModel, object model)
     {
         if (model is null)

@@ -5,6 +5,8 @@ namespace MvvmElegance;
 public partial class ViewService
 {
     /// <inheritdoc />
+    /// <exception cref="ArgumentNullException">Value of parameter <paramref name="message" /> or <paramref name="caption" /> is <c>null</c>.</exception>
+    /// <exception cref="ArgumentOutOfRangeException">Value of parameter <paramref name="button" /> or <paramref name="kind" /> is not defined in the enumeration.</exception>
     public Task<MessageBoxResult> ShowMessageBoxAsync(object? ownerModel, string message, string caption,
         MessageBoxButton button = MessageBoxButton.Ok, MessageBoxKind kind = MessageBoxKind.None)
     {

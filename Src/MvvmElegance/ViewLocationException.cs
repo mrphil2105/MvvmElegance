@@ -6,7 +6,7 @@ namespace MvvmElegance;
 public class ViewLocationException : Exception
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="ViewLocationException"/> class with the specified message and model type.
+    /// Initializes a new instance of the <see cref="ViewLocationException" /> class with the specified message and model type.
     /// </summary>
     /// <param name="message">A message to describe the error.</param>
     /// <param name="modelType">The type of model from which a view type could not be found.</param>
