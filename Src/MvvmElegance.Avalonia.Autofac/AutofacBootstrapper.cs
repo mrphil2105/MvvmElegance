@@ -1,14 +1,10 @@
-using Avalonia.Controls.ApplicationLifetimes;
-using MvvmElegance.Internal;
-using MvvmElegance.Xaml;
-
 namespace MvvmElegance;
 
 /// <summary>
 /// Provides a bootstrapper that uses Autofac to configure basic services and launch the application.
 /// </summary>
 /// <typeparam name="TRootViewModel">The main view model type for the main view.</typeparam>
-public abstract class AutofacBootstrapper<TRootViewModel> : BootstrapperBase
+public abstract class AutofacBootstrapper<TRootViewModel> : BootstrapperBase<TRootViewModel>
     where TRootViewModel : notnull
 {
     private IContainer? _container;
@@ -44,38 +40,6 @@ public abstract class AutofacBootstrapper<TRootViewModel> : BootstrapperBase
     /// <param name="builder">The builder for the Autofac container.</param>
     protected virtual void ConfigureServices(ContainerBuilder builder)
     {
-    }
-
-    /// <summary>
-    /// Launches the application and displays the root view.
-    /// </summary>
-    /// <exception cref="InvalidOperationException">The application <see cref="BootstrapperBase" /> has not been initialized.</exception>
-    protected override void Launch()
-    {
-        if (Application.Current!.ApplicationLifetime is not IClassicDesktopStyleApplicationLifetime appLifetime)
-        {
-            throw new InvalidOperationException("The current application lifetime must be of type " +
-                $"'{typeof(IClassicDesktopStyleApplicationLifetime).FullName}'.");
-        }
-
-        if (!Application.Current.TryFindResource<IExtendedViewManager>(View.ViewManagerResourceKey,
-                out var viewManager))
-        {
-            throw new InvalidOperationException(
-                $"Method '{typeof(AutofacBootstrapper<>).FullName}.{nameof(Launch)}' cannot be called before " +
-                $"method '{typeof(BootstrapperBase).FullName}.{nameof(Initialize)}' has been called.");
-        }
-
-        var rootViewModel = GetService<TRootViewModel>();
-        var rootView = viewManager!.CreateView(rootViewModel);
-
-        if (rootView is not Window window)
-        {
-            throw new InvalidOperationException($"The root view was of type '{rootView.GetType().FullName}', " +
-                $"but must be of type '{typeof(Window).FullName}'.");
-        }
-
-        appLifetime.MainWindow = window;
     }
 
     /// <inheritdoc />

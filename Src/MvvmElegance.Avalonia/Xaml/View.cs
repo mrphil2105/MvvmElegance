@@ -55,7 +55,7 @@ public static class View
         {
             throw new InvalidOperationException("Value of attached property " +
                 $"'{typeof(View).FullName}.{nameof(ModelProperty)}' cannot be set before method " +
-                $"'{typeof(BootstrapperBase).FullName}.{nameof(BootstrapperBase.Initialize)}' has been called.");
+                $"'{typeof(BootstrapperBase<>).FullName}.{nameof(IBootstrapper.Initialize)}' has been called.");
         }
 
         viewManager!.SetModel(element, e.NewValue);

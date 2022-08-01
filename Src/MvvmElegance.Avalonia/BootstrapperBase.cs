@@ -9,7 +9,8 @@ namespace MvvmElegance;
 /// <summary>
 /// Provides a bootstrapper that can set up services and launch the application.
 /// </summary>
-public abstract class BootstrapperBase : IBootstrapper
+public abstract class BootstrapperBase<TRootViewModel> : IBootstrapper
+    where TRootViewModel : notnull
 {
     /// <summary>
     /// Gets the command line arguments that were passed to the application on execute.
@@ -46,15 +47,42 @@ public abstract class BootstrapperBase : IBootstrapper
     protected abstract void ConfigureServices();
 
     /// <summary>
-    /// Called when the application should be launched and is responsible for displaying the root view.
-    /// </summary>
-    protected abstract void Launch();
-
-    /// <summary>
     /// Called after the application services have been configured.
     /// </summary>
     protected virtual void Configure()
     {
+    }
+
+    /// <summary>
+    /// Launches the application and displays the root view.
+    /// </summary>
+    /// <exception cref="InvalidOperationException">The application <see cref="BootstrapperBase{TRootViewModel}" /> has not been initialized.</exception>
+    protected virtual void Launch()
+    {
+        if (Application.Current!.ApplicationLifetime is not IClassicDesktopStyleApplicationLifetime appLifetime)
+        {
+            throw new InvalidOperationException("The current application lifetime must be of type " +
+                $"'{typeof(IClassicDesktopStyleApplicationLifetime).FullName}'.");
+        }
+
+        if (!Application.Current.TryFindResource<IExtendedViewManager>(View.ViewManagerResourceKey,
+                out var viewManager))
+        {
+            throw new InvalidOperationException(
+                $"Method '{typeof(BootstrapperBase<>).FullName}.{nameof(Launch)}' cannot be called before " +
+                $"method '{typeof(BootstrapperBase<>).FullName}.{nameof(Initialize)}' has been called.");
+        }
+
+        var rootViewModel = GetService<TRootViewModel>();
+        var rootView = viewManager!.CreateView(rootViewModel);
+
+        if (rootView is not Window window)
+        {
+            throw new InvalidOperationException($"The root view was of type '{rootView.GetType().FullName}', " +
+                $"but must be of type '{typeof(Window).FullName}'.");
+        }
+
+        appLifetime.MainWindow = window;
     }
 
     private void Start(string[] args)

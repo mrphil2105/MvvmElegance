@@ -14,14 +14,14 @@ public partial class ViewService : IViewService
     /// <summary>
     /// Initializes a new instance of the <see cref="ViewService" /> class.
     /// </summary>
-    /// <exception cref="InvalidOperationException">The application <see cref="BootstrapperBase" /> has not been initialized.</exception>
+    /// <exception cref="InvalidOperationException">The application <see cref="BootstrapperBase{TRootViewModel}" /> has not been initialized.</exception>
     public ViewService()
     {
         if (!Application.Current!.TryFindResource(View.ViewManagerResourceKey, out _viewManager!))
         {
             throw new InvalidOperationException(
                 $"Instances of '{typeof(ViewService).FullName}' cannot be created before method " +
-                $"'{typeof(BootstrapperBase).FullName}.{nameof(BootstrapperBase.Initialize)}' has been called.");
+                $"'{typeof(BootstrapperBase<>).FullName}.{nameof(IBootstrapper.Initialize)}' has been called.");
         }
     }
 
