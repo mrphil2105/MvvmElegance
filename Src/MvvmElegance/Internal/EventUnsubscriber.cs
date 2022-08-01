@@ -6,8 +6,7 @@ internal class EventUnsubscriber<TEvent> : IDisposable
     private readonly EventSubscriptionStore<TEvent> _subscriptionStore;
     private readonly EventSubscription<TEvent> _subscription;
 
-    public EventUnsubscriber(EventSubscriptionStore<TEvent> subscriptionStore,
-        EventSubscription<TEvent> subscription)
+    public EventUnsubscriber(EventSubscriptionStore<TEvent> subscriptionStore, EventSubscription<TEvent> subscription)
     {
         _subscriptionStore = subscriptionStore;
         _subscription = subscription;

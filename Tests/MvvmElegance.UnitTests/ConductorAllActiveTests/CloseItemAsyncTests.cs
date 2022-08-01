@@ -51,8 +51,8 @@ public class CloseItemAsyncTests
 
     [Theory]
     [AutoMoqData]
-    public async Task CloseItemAsync_DoesNotCallDispose_WhenDisposeChildrenIsFalse(
-        Mock<IDisposable> disposableMock, Conductor<IDisposable>.Collection.AllActive conductor)
+    public async Task CloseItemAsync_DoesNotCallDispose_WhenDisposeChildrenIsFalse(Mock<IDisposable> disposableMock,
+        Conductor<IDisposable>.Collection.AllActive conductor)
     {
         var property = conductor.GetType()
             .GetProperty("DisposeChildren", BindingFlags.Instance | BindingFlags.NonPublic);

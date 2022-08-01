@@ -4,7 +4,8 @@ public class ItemsAddTests
 {
     [Theory]
     [AutoData]
-    public async Task ItemsAdd_ActivatesScreen_WhenActive(Conductor<Screen>.Collection.AllActive conductor, Screen screen)
+    public async Task ItemsAdd_ActivatesScreen_WhenActive(Conductor<Screen>.Collection.AllActive conductor,
+        Screen screen)
     {
         await ScreenExtensions.TryActivateAsync(conductor);
 
@@ -16,7 +17,8 @@ public class ItemsAddTests
 
     [Theory]
     [AutoData]
-    public async Task ItemsAdd_DeactivatesScreen_WhenInactive(Conductor<Screen>.Collection.AllActive conductor, Screen screen)
+    public async Task ItemsAdd_DeactivatesScreen_WhenInactive(Conductor<Screen>.Collection.AllActive conductor,
+        Screen screen)
     {
         await ScreenExtensions.TryActivateAsync(screen);
 

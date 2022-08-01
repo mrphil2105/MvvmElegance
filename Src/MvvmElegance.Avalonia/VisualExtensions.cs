@@ -41,7 +41,7 @@ public static class VisualExtensions
     /// </summary>
     /// <param name="visual">The visual to get the parent window of.</param>
     /// <returns>The parent window of the visual or <c>null</c> if not found.</returns>
-    /// <exception cref="InvalidOperationException">The visual root is not of type <see cref="Window"/>.</exception>
+    /// <exception cref="InvalidOperationException">The visual root is not of type <see cref="Window" />.</exception>
     public static Window? GetWindow(this IVisual visual)
     {
         var visualRoot = visual.GetVisualRoot();
