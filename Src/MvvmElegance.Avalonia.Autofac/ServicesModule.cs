@@ -27,6 +27,9 @@ internal class ServicesModule : Module
             .As<IEventAggregator>()
             .SingleInstance();
 
+        builder.RegisterType<Timer>()
+            .As<ITimer>();
+
         builder.Register(_ => new DefaultViewTypeLocator(appAssembly))
             .As<IViewTypeLocator>();
 
