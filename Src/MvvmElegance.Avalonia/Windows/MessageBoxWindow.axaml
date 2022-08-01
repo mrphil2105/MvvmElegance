@@ -1,0 +1,28 @@
+<Window x:Class="MvvmElegance.Windows.MessageBoxWindow"
+        xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Width="350" SizeToContent="Height" CanResize="False"
+        WindowStartupLocation="CenterScreen" ShowInTaskbar="False">
+    <Window.Styles>
+        <StyleInclude Source="avares://Avalonia.Themes.Default/DefaultTheme.xaml" />
+        <StyleInclude Source="avares://Avalonia.Themes.Default/Accents/BaseLight.xaml" />
+    </Window.Styles>
+
+    <DockPanel>
+        <Border DockPanel.Dock="Bottom" Background="#EEEEEE">
+            <StackPanel Name="Buttons" HorizontalAlignment="Right" Orientation="Horizontal" Margin="4">
+                <StackPanel.Styles>
+                    <Style Selector="Button">
+                        <Setter Property="Margin" Value="4" />
+                        <Setter Property="Width" Value="80" />
+                    </Style>
+                </StackPanel.Styles>
+            </StackPanel>
+        </Border>
+
+        <TextBlock Name="Message" Margin="16" TextWrapping="Wrap" />
+    </DockPanel>
+</Window>
