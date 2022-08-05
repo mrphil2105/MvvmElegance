@@ -52,8 +52,6 @@ internal class ExtendedViewManager : IExtendedViewManager
             _modelWindowConductors.Add(model, windowConductor);
 
             window.Closed += OnWindowClosed;
-
-            // TODO: Bind to 'Title' if model is 'IHaveDisplayName'.
         }
         else
         {
