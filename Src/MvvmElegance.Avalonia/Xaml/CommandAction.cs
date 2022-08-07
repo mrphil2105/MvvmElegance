@@ -70,9 +70,6 @@ public class CommandAction : AvaloniaObject, ICommand
         this[!TargetProperty] = Element[!View.ActionTargetProperty];
     }
 
-    /// <inheritdoc />
-    public event EventHandler? CanExecuteChanged;
-
     /// <summary>
     /// Gets the element that the action is defined on.
     /// </summary>
@@ -92,6 +89,9 @@ public class CommandAction : AvaloniaObject, ICommand
     /// Gets the desired behavior when the action method could not be found.
     /// </summary>
     public ActionUnavailableBehavior MethodNotFoundBehavior { get; }
+
+    /// <inheritdoc />
+    public event EventHandler? CanExecuteChanged;
 
     /// <inheritdoc />
     public bool CanExecute(object? obj)

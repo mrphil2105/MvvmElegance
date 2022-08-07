@@ -18,13 +18,6 @@ public class Timer : ITimer
     }
 
     /// <inheritdoc />
-    public event EventHandler Elapsed
-    {
-        add => _dispatcherTimer.Tick += value;
-        remove => _dispatcherTimer.Tick -= value;
-    }
-
-    /// <inheritdoc />
     public TimeSpan Interval
     {
         get => _dispatcherTimer.Interval;
@@ -36,6 +29,13 @@ public class Timer : ITimer
     {
         get => _dispatcherTimer.IsEnabled;
         set => _dispatcherTimer.IsEnabled = value;
+    }
+
+    /// <inheritdoc />
+    public event EventHandler Elapsed
+    {
+        add => _dispatcherTimer.Tick += value;
+        remove => _dispatcherTimer.Tick -= value;
     }
 
     /// <inheritdoc />

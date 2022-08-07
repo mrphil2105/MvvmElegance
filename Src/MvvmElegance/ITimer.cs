@@ -6,11 +6,6 @@ namespace MvvmElegance;
 public interface ITimer
 {
     /// <summary>
-    /// An event that is raised when the timer has elapsed.
-    /// </summary>
-    event EventHandler Elapsed;
-
-    /// <summary>
     /// Gets or sets the interval between timer events.
     /// </summary>
     TimeSpan Interval { get; set; }
@@ -19,6 +14,11 @@ public interface ITimer
     /// Gets or sets a boolean indicating whether the timer is enabled.
     /// </summary>
     bool IsEnabled { get; set; }
+
+    /// <summary>
+    /// An event that is raised when the timer has elapsed.
+    /// </summary>
+    event EventHandler Elapsed;
 
     /// <summary>
     /// Enables the timer to raise events.
