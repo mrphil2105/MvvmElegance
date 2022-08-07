@@ -6,6 +6,15 @@
     <RootNamespace>MvvmElegance</RootNamespace>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+
+    <!-- Package configuration -->
+    <VersionPrefix>0.0.0</VersionPrefix>
+    <Authors>Philip Mørch</Authors>
+    <Copyright>Copyright © 2022 Philip Mørch</Copyright>
+    <PackageProjectUrl>https://github.com/mrphil2105/MvvmElegance</PackageProjectUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/mrphil2105/MvvmElegance.git</RepositoryUrl>
   </PropertyGroup>
 
 </Project>
