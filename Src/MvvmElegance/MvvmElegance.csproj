@@ -2,6 +2,10 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
+
+    <!-- Package configuration -->
+    <Description>An elegant and powerful ViewModel-First MVVM framework for Avalonia, inspired by Stylet.</Description>
+    <PackageTags>avalonia;avaloniaui;mvvm;model-view-viewmodel;viewmodel;viewmodel-first;screen;conductor;desktop</PackageTags>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">

@@ -2,6 +2,10 @@
 
   <PropertyGroup>
     <TargetFrameworks>netcoreapp3.1;net461;netstandard2.0;netstandard2.1</TargetFrameworks>
+
+    <!-- Package configuration -->
+    <Description>Provides a bootstrapper for easy application setup with Autofac when using MvvmElegance.</Description>
+    <PackageTags>avalonia;avaloniaui;mvvm;model-view-viewmodel;viewmodel;viewmodel-first;screen;conductor;desktop;autofac</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>

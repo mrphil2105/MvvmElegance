@@ -2,6 +2,10 @@
 
   <PropertyGroup>
     <TargetFrameworks>netcoreapp3.1;net461;netstandard2.0;netstandard2.1</TargetFrameworks>
+
+    <!-- Package configuration -->
+    <Description>Provides Avalonia-compatible types for the View project when using MvvmElegance.</Description>
+    <PackageTags>avalonia;avaloniaui;mvvm;model-view-viewmodel;viewmodel;viewmodel-first;screen;conductor;desktop;view</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
