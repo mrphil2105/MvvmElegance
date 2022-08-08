@@ -12,6 +12,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvvmElegance.Avalonia", "Sr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvvmElegance.Avalonia.Autofac", "Src\MvvmElegance.Avalonia.Autofac\MvvmElegance.Avalonia.Autofac.csproj", "{E2835947-EB7A-41D4-B2C1-E4AF9EF09A81}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvvmElegance.Avalonia.DependencyInjection", "Src\MvvmElegance.Avalonia.DependencyInjection\MvvmElegance.Avalonia.DependencyInjection.csproj", "{A8A1A359-D86B-40CB-BEEF-8B6CB7E6EF58}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -22,6 +24,7 @@ Global
 		{7B31FD11-5411-4AA6-B240-E5B1FEEC321B} = {E8ECD26F-1923-4367-AC1B-C1CF6333343C}
 		{11321583-DB2A-479E-9126-AB7364C33823} = {460987AD-1C40-4936-B264-955AA79CBB12}
 		{E2835947-EB7A-41D4-B2C1-E4AF9EF09A81} = {460987AD-1C40-4936-B264-955AA79CBB12}
+		{A8A1A359-D86B-40CB-BEEF-8B6CB7E6EF58} = {460987AD-1C40-4936-B264-955AA79CBB12}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{D1F3A4C5-32A1-4615-8CD1-CD43C464A8A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -40,5 +43,9 @@ Global
 		{E2835947-EB7A-41D4-B2C1-E4AF9EF09A81}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E2835947-EB7A-41D4-B2C1-E4AF9EF09A81}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E2835947-EB7A-41D4-B2C1-E4AF9EF09A81}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8A1A359-D86B-40CB-BEEF-8B6CB7E6EF58}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8A1A359-D86B-40CB-BEEF-8B6CB7E6EF58}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8A1A359-D86B-40CB-BEEF-8B6CB7E6EF58}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8A1A359-D86B-40CB-BEEF-8B6CB7E6EF58}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

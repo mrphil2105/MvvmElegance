@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netcoreapp3.1;net461;netstandard2.0;netstandard2.1</TargetFrameworks>
+
+    <!-- Package configuration -->
+    <Description>Provides a bootstrapper for easy application setup with Microsoft.Extensions.DependencyInjection when using MvvmElegance.</Description>
+    <PackageTags>avalonia;avaloniaui;mvvm;model-view-viewmodel;viewmodel;viewmodel-first;screen;conductor;desktop;microsoft-di;microsoft-dependencyinjection</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Using Include="Avalonia" />
+    <Using Include="Avalonia.Controls" />
+    <Using Include="Microsoft.Extensions.DependencyInjection" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MvvmElegance.Avalonia\MvvmElegance.Avalonia.csproj" />
+  </ItemGroup>
+
+</Project>
