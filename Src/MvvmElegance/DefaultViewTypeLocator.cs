@@ -2,6 +2,9 @@ using System.Reflection;
 
 namespace MvvmElegance;
 
+/// <summary>
+/// Provides a type locator for views that uses naming convention.
+/// </summary>
 public class DefaultViewTypeLocator : IViewTypeLocator
 {
     private const string ViewModelSuffix = "ViewModel";
@@ -9,11 +12,18 @@ public class DefaultViewTypeLocator : IViewTypeLocator
 
     private readonly Assembly _viewAssembly;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="DefaultViewTypeLocator" /> class with the specified view assembly.
+    /// </summary>
+    /// <param name="viewAssembly">The view assembly that contains the view types.</param>
     public DefaultViewTypeLocator(Assembly viewAssembly)
     {
         _viewAssembly = viewAssembly;
     }
 
+    /// <inheritdoc />
+    /// <exception cref="ViewLocationException">The view model type name does not end in 'ViewModel' or
+    /// a matching view type could not be found or more than one view type was found.</exception>
     public Type Locate(Type modelType)
     {
         var viewModelName = modelType.Name;
