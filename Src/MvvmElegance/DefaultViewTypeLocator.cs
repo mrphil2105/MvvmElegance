@@ -1,8 +1,8 @@
 using System.Reflection;
 
-namespace MvvmElegance.Internal;
+namespace MvvmElegance;
 
-internal class DefaultViewTypeLocator : IViewTypeLocator
+public class DefaultViewTypeLocator : IViewTypeLocator
 {
     private const string ViewModelSuffix = "ViewModel";
     private const string ViewSuffix = "View";
