@@ -9,7 +9,6 @@ public class ActionTargetUnsetException : Exception
     /// Initializes a new instance of the <see cref="ActionTargetUnsetException" /> class with the specified message.
     /// </summary>
     /// <param name="message">A message to describe the error.</param>
-    public ActionTargetUnsetException(string message) : base(message)
-    {
-    }
+    public ActionTargetUnsetException(string message)
+        : base(message) { }
 }

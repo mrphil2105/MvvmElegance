@@ -8,8 +8,7 @@ public class ActivateItemAsyncTests
     {
         await conductor.ActivateItemAsync(item);
 
-        conductor.ActiveItem.Should()
-            .Be(item);
+        conductor.ActiveItem.Should().Be(item);
     }
 
     [Theory]
@@ -21,21 +20,20 @@ public class ActivateItemAsyncTests
 
         await conductor.ActivateItemAsync(conductor.ActiveItem);
 
-        conductor.ActiveItem!.State.Should()
-            .Be(ScreenState.Active);
+        conductor.ActiveItem!.State.Should().Be(ScreenState.Active);
     }
 
     [Theory]
     [AutoData]
     public async Task ActivateItemAsync_DeactivatesActiveItem_WhenInactive(
-        Conductor<Screen>.Collection.OneActive conductor)
+        Conductor<Screen>.Collection.OneActive conductor
+    )
     {
         await ScreenExtensions.TryActivateAsync(conductor.ActiveItem);
 
         await conductor.ActivateItemAsync(conductor.ActiveItem);
 
-        conductor.ActiveItem!.State.Should()
-            .Be(ScreenState.Inactive);
+        conductor.ActiveItem!.State.Should().Be(ScreenState.Inactive);
     }
 
     [Theory]
@@ -44,34 +42,35 @@ public class ActivateItemAsyncTests
     {
         await conductor.ActivateItemAsync(null);
 
-        conductor.ActiveItem.Should()
-            .BeNull();
+        conductor.ActiveItem.Should().BeNull();
     }
 
     [Theory]
     [AutoData]
-    public async Task ActivateItemAsync_ActivatesScreen_WhenActive(Conductor<Screen>.Collection.OneActive conductor,
-        Screen screen)
+    public async Task ActivateItemAsync_ActivatesScreen_WhenActive(
+        Conductor<Screen>.Collection.OneActive conductor,
+        Screen screen
+    )
     {
         await ScreenExtensions.TryActivateAsync(conductor);
 
         await conductor.ActivateItemAsync(screen);
 
-        screen.State.Should()
-            .Be(ScreenState.Active);
+        screen.State.Should().Be(ScreenState.Active);
     }
 
     [Theory]
     [AutoData]
-    public async Task ActivateItemAsync_DeactivatesScreen_WhenInactive(Conductor<Screen>.Collection.OneActive conductor,
-        Screen screen)
+    public async Task ActivateItemAsync_DeactivatesScreen_WhenInactive(
+        Conductor<Screen>.Collection.OneActive conductor,
+        Screen screen
+    )
     {
         await ScreenExtensions.TryActivateAsync(screen);
 
         await conductor.ActivateItemAsync(screen);
 
-        screen.State.Should()
-            .Be(ScreenState.Inactive);
+        screen.State.Should().Be(ScreenState.Inactive);
     }
 
     [Theory]
@@ -80,18 +79,18 @@ public class ActivateItemAsyncTests
     {
         await conductor.ActivateItemAsync(item);
 
-        conductor.Items.Should()
-            .Contain(item);
+        conductor.Items.Should().Contain(item);
     }
 
     [Theory]
     [AutoData]
-    public async Task ActivateItemAsync_SetsScreenParent(Conductor<Screen>.Collection.OneActive conductor,
-        Screen screen)
+    public async Task ActivateItemAsync_SetsScreenParent(
+        Conductor<Screen>.Collection.OneActive conductor,
+        Screen screen
+    )
     {
         await conductor.ActivateItemAsync(screen);
 
-        screen.Parent.Should()
-            .Be(conductor);
+        screen.Parent.Should().Be(conductor);
     }
 }

@@ -9,7 +9,6 @@ public class ActionMethodNotFoundException : Exception
     /// Initializes a new instance of the <see cref="ActionMethodNotFoundException" /> class with the specified message.
     /// </summary>
     /// <param name="message">A message to describe the error.</param>
-    public ActionMethodNotFoundException(string message) : base(message)
-    {
-    }
+    public ActionMethodNotFoundException(string message)
+        : base(message) { }
 }

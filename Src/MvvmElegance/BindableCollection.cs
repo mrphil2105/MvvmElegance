@@ -24,7 +24,8 @@ public class BindableCollection<T> : ObservableCollection<T>
     /// Initializes a new instance of the <see cref="BindableCollection{T}" /> class with the elements of the specified collection.
     /// </summary>
     /// <param name="items">The collection with the elements to add.</param>
-    public BindableCollection(IEnumerable<T> items) : base(items)
+    public BindableCollection(IEnumerable<T> items)
+        : base(items)
     {
         _shouldNotify = true;
     }

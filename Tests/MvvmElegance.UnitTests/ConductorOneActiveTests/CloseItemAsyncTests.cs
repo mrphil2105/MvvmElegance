@@ -13,8 +13,7 @@ public class CloseItemAsyncTests
 
         await conductor.CloseItemAsync(conductor.ActiveItem);
 
-        activeItem.State.Should()
-            .Be(ScreenState.Closed);
+        activeItem.State.Should().Be(ScreenState.Closed);
     }
 
     [Theory]
@@ -23,8 +22,7 @@ public class CloseItemAsyncTests
     {
         await conductor.CloseItemAsync(screen);
 
-        screen.State.Should()
-            .Be(ScreenState.Closed);
+        screen.State.Should().Be(ScreenState.Closed);
     }
 
     [Theory]
@@ -35,8 +33,7 @@ public class CloseItemAsyncTests
 
         await conductor.CloseItemAsync(screen);
 
-        screen.Parent.Should()
-            .BeNull();
+        screen.Parent.Should().BeNull();
     }
 
     [Theory]
@@ -47,14 +44,15 @@ public class CloseItemAsyncTests
 
         await conductor.CloseItemAsync(screen);
 
-        conductor.Items.Should()
-            .NotContain(screen);
+        conductor.Items.Should().NotContain(screen);
     }
 
     [Theory]
     [AutoMoqData]
-    public async Task CloseItemAsync_CallsDispose_WhenDisposeChildrenIsTrue([Frozen] Mock<IDisposable> disposableMock,
-        Conductor<IDisposable>.Collection.OneActive conductor)
+    public async Task CloseItemAsync_CallsDispose_WhenDisposeChildrenIsTrue(
+        [Frozen] Mock<IDisposable> disposableMock,
+        Conductor<IDisposable>.Collection.OneActive conductor
+    )
     {
         await conductor.CloseItemAsync(conductor.ActiveItem);
 
@@ -64,9 +62,12 @@ public class CloseItemAsyncTests
     [Theory]
     [AutoMoqData]
     public async Task CloseItemAsync_DoesNotCallDispose_WhenDisposeChildrenIsFalse(
-        [Frozen] Mock<IDisposable> disposableMock, Conductor<IDisposable>.Collection.OneActive conductor)
+        [Frozen] Mock<IDisposable> disposableMock,
+        Conductor<IDisposable>.Collection.OneActive conductor
+    )
     {
-        var property = conductor.GetType()
+        var property = conductor
+            .GetType()
             .GetProperty("DisposeChildren", BindingFlags.Instance | BindingFlags.NonPublic);
         property!.SetValue(conductor, false);
 
@@ -78,25 +79,26 @@ public class CloseItemAsyncTests
     [Theory]
     [AutoData]
     public async Task CloseItemAsync_ClearsActiveItem_WhenContainsSingle(
-        Conductor<object>.Collection.OneActive conductor)
+        Conductor<object>.Collection.OneActive conductor
+    )
     {
         await conductor.CloseItemAsync(conductor.ActiveItem);
 
-        conductor.ActiveItem.Should()
-            .BeNull();
+        conductor.ActiveItem.Should().BeNull();
     }
 
     [Theory]
     [AutoData]
     public async Task CloseItemAsync_ChangesActiveItem_WhenContainsMultiple(
-        Conductor<object>.Collection.OneActive conductor, List<object> items)
+        Conductor<object>.Collection.OneActive conductor,
+        List<object> items
+    )
     {
         conductor.Items.AddRange(items);
         await conductor.ActivateItemAsync(items.Last());
 
         await conductor.CloseItemAsync(items.Last());
 
-        conductor.ActiveItem.Should()
-            .Be(conductor.Items[^1]);
+        conductor.ActiveItem.Should().Be(conductor.Items[^1]);
     }
 }

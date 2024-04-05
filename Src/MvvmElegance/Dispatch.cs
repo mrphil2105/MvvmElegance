@@ -21,8 +21,10 @@ public static class Dispatch
         {
             if (_dispatcher == null)
             {
-                throw new InvalidOperationException("Value cannot be retrieved before method " +
-                    $"'{typeof(IBootstrapper).FullName}.{nameof(IBootstrapper.Initialize)}' has been called.");
+                throw new InvalidOperationException(
+                    "Value cannot be retrieved before method "
+                        + $"'{typeof(IBootstrapper).FullName}.{nameof(IBootstrapper.Initialize)}' has been called."
+                );
             }
 
             return _dispatcher;
@@ -39,8 +41,10 @@ public static class Dispatch
         {
             if (_taskScheduler == null)
             {
-                throw new InvalidOperationException("Value cannot be retrieved before method " +
-                    $"'{typeof(IBootstrapper).FullName}.{nameof(IBootstrapper.Initialize)}' has been called.");
+                throw new InvalidOperationException(
+                    "Value cannot be retrieved before method "
+                        + $"'{typeof(IBootstrapper).FullName}.{nameof(IBootstrapper.Initialize)}' has been called."
+                );
             }
 
             return _taskScheduler;
@@ -57,8 +61,10 @@ public static class Dispatch
         {
             if (_taskFactory == null)
             {
-                throw new InvalidOperationException("Value cannot be retrieved before method " +
-                    $"'{typeof(IBootstrapper).FullName}.{nameof(IBootstrapper.Initialize)}' has been called.");
+                throw new InvalidOperationException(
+                    "Value cannot be retrieved before method "
+                        + $"'{typeof(IBootstrapper).FullName}.{nameof(IBootstrapper.Initialize)}' has been called."
+                );
             }
 
             return _taskFactory;
@@ -115,8 +121,12 @@ public static class Dispatch
             throw new ArgumentNullException(nameof(action));
         }
 
-        return TaskFactory.StartNew(action, default, TaskFactory.CreationOptions | TaskCreationOptions.DenyChildAttach,
-            TaskScheduler);
+        return TaskFactory.StartNew(
+            action,
+            default,
+            TaskFactory.CreationOptions | TaskCreationOptions.DenyChildAttach,
+            TaskScheduler
+        );
     }
 
     /// <summary>
@@ -133,8 +143,12 @@ public static class Dispatch
             throw new ArgumentNullException(nameof(func));
         }
 
-        return TaskFactory.StartNew(func, default, TaskFactory.CreationOptions | TaskCreationOptions.DenyChildAttach,
-            TaskScheduler);
+        return TaskFactory.StartNew(
+            func,
+            default,
+            TaskFactory.CreationOptions | TaskCreationOptions.DenyChildAttach,
+            TaskScheduler
+        );
     }
 
     /// <summary>
@@ -150,8 +164,8 @@ public static class Dispatch
             throw new ArgumentNullException(nameof(func));
         }
 
-        return TaskFactory.StartNew(func, default, TaskFactory.CreationOptions | TaskCreationOptions.DenyChildAttach,
-                TaskScheduler)
+        return TaskFactory
+            .StartNew(func, default, TaskFactory.CreationOptions | TaskCreationOptions.DenyChildAttach, TaskScheduler)
             .Unwrap();
     }
 
@@ -169,8 +183,8 @@ public static class Dispatch
             throw new ArgumentNullException(nameof(func));
         }
 
-        return TaskFactory.StartNew(func, default, TaskFactory.CreationOptions | TaskCreationOptions.DenyChildAttach,
-                TaskScheduler)
+        return TaskFactory
+            .StartNew(func, default, TaskFactory.CreationOptions | TaskCreationOptions.DenyChildAttach, TaskScheduler)
             .Unwrap();
     }
 
@@ -254,7 +268,11 @@ public static class Dispatch
     {
         _dispatcher = dispatcher ?? throw new ArgumentNullException(nameof(dispatcher));
         _taskScheduler = new DispatcherTaskScheduler(dispatcher);
-        _taskFactory = new TaskFactory(default, TaskCreationOptions.HideScheduler,
-            TaskContinuationOptions.HideScheduler, _taskScheduler);
+        _taskFactory = new TaskFactory(
+            default,
+            TaskCreationOptions.HideScheduler,
+            TaskContinuationOptions.HideScheduler,
+            _taskScheduler
+        );
     }
 }

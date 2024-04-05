@@ -53,8 +53,7 @@ internal class EventSubscriptionStore<TEvent> : EventSubscriptionStore
         {
             for (var i = 0; i < subscriptionCount; i++)
             {
-                subscriptionsCopy[i]
-                    .Invoke(e);
+                subscriptionsCopy[i].Invoke(e);
             }
         }
         finally

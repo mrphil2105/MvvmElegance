@@ -8,8 +8,7 @@ public class ActivateAsyncTests
     {
         await ScreenExtensions.TryActivateAsync(screen);
 
-        screen.State.Should()
-            .Be(ScreenState.Active);
+        screen.State.Should().Be(ScreenState.Active);
     }
 
     [Theory]
@@ -18,8 +17,7 @@ public class ActivateAsyncTests
     {
         await ScreenExtensions.TryActivateAsync(screen);
 
-        screen.IsInitialized.Should()
-            .BeTrue();
+        screen.IsInitialized.Should().BeTrue();
     }
 
     [Theory]
@@ -30,8 +28,7 @@ public class ActivateAsyncTests
 
         await ScreenExtensions.TryActivateAsync(screen);
 
-        monitor.Should()
-            .Raise(nameof(Screen.Activated));
+        monitor.Should().Raise(nameof(Screen.Activated));
     }
 
     [Theory]
@@ -42,9 +39,7 @@ public class ActivateAsyncTests
 
         await ScreenExtensions.TryActivateAsync(screen);
 
-        monitor.Should()
-            .Raise(nameof(Screen.Activated))
-            .WithArgs<ActivatedEventArgs>(e => e.WasInitialized);
+        monitor.Should().Raise(nameof(Screen.Activated)).WithArgs<ActivatedEventArgs>(e => e.WasInitialized);
     }
 
     [Theory]
@@ -56,8 +51,7 @@ public class ActivateAsyncTests
 
         await ScreenExtensions.TryActivateAsync(screen);
 
-        monitor.Should()
-            .NotRaise(nameof(Screen.Activated));
+        monitor.Should().NotRaise(nameof(Screen.Activated));
     }
 
     [Theory]
@@ -70,8 +64,6 @@ public class ActivateAsyncTests
 
         await ScreenExtensions.TryActivateAsync(screen);
 
-        monitor.Should()
-            .Raise(nameof(Screen.Activated))
-            .WithArgs<ActivatedEventArgs>(e => !e.WasInitialized);
+        monitor.Should().Raise(nameof(Screen.Activated)).WithArgs<ActivatedEventArgs>(e => !e.WasInitialized);
     }
 }

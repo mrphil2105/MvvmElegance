@@ -56,8 +56,7 @@ public class CollectionSizeAttribute : CustomizeAttribute
 
         public void Customize(IFixture fixture)
         {
-            var listBuilder = new FixedBuilder(fixture.CreateMany<T>(_size)
-                .ToList());
+            var listBuilder = new FixedBuilder(fixture.CreateMany<T>(_size).ToList());
             var filteringBuilder = new FilteringSpecimenBuilder(listBuilder, new EqualRequestSpecification(_parameter));
             fixture.Customizations.Add(filteringBuilder);
         }

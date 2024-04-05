@@ -87,8 +87,10 @@ public abstract class ConductorBase<T> : Screen, IConductor, IParent<T>
     /// <param name="items">The collection with the items to check.</param>
     /// <param name="cancellationToken">The cancellation token used to cancel the operation.</param>
     /// <returns>A task representing the asynchronous operation, with a boolean indicating whether the items can be closed.</returns>
-    protected virtual async Task<bool> CanCloseAllItemsAsync(IEnumerable<T?>? items,
-        CancellationToken cancellationToken = default)
+    protected virtual async Task<bool> CanCloseAllItemsAsync(
+        IEnumerable<T?>? items,
+        CancellationToken cancellationToken = default
+    )
     {
         if (items == null)
         {

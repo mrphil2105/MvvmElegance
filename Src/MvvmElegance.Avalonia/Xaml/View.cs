@@ -18,8 +18,11 @@ public static class View
     /// <summary>
     /// An attached property specifying the model associated with a given control.
     /// </summary>
-    public static readonly AttachedProperty<object> ModelProperty =
-        AvaloniaProperty.RegisterAttached<ContentControl, Control, object>("Model");
+    public static readonly AttachedProperty<object> ModelProperty = AvaloniaProperty.RegisterAttached<
+        ContentControl,
+        Control,
+        object
+    >("Model");
 
     /// <summary>
     /// Gets the model associated with the specified control.
@@ -46,16 +49,19 @@ public static class View
         if (e.Sender is not Control element)
         {
             throw new InvalidOperationException(
-                $"Value of property '{typeof(AvaloniaPropertyChangedEventArgs).FullName}." +
-                $"{nameof(AvaloniaPropertyChangedEventArgs.Sender)}' must be of type " +
-                $"'{typeof(Control).FullName}'.");
+                $"Value of property '{typeof(AvaloniaPropertyChangedEventArgs).FullName}."
+                    + $"{nameof(AvaloniaPropertyChangedEventArgs.Sender)}' must be of type "
+                    + $"'{typeof(Control).FullName}'."
+            );
         }
 
         if (!Application.Current!.TryFindResource<IExtendedViewManager>(ViewManagerResourceKey, out var viewManager))
         {
-            throw new InvalidOperationException("Value of attached property " +
-                $"'{typeof(View).FullName}.{nameof(ModelProperty)}' cannot be set before method " +
-                $"'{typeof(BootstrapperBase<>).FullName}.{nameof(IBootstrapper.Initialize)}' has been called.");
+            throw new InvalidOperationException(
+                "Value of attached property "
+                    + $"'{typeof(View).FullName}.{nameof(ModelProperty)}' cannot be set before method "
+                    + $"'{typeof(BootstrapperBase<>).FullName}.{nameof(IBootstrapper.Initialize)}' has been called."
+            );
         }
 
         viewManager!.SetModel(element, e.NewValue);
@@ -64,8 +70,11 @@ public static class View
     /// <summary>
     /// An attached property specifying the action target associated with a given control for actions.
     /// </summary>
-    public static readonly AttachedProperty<object?> ActionTargetProperty =
-        AvaloniaProperty.RegisterAttached<ContentControl, Control, object?>("ActionTarget", null, true);
+    public static readonly AttachedProperty<object?> ActionTargetProperty = AvaloniaProperty.RegisterAttached<
+        ContentControl,
+        Control,
+        object?
+    >("ActionTarget", null, true);
 
     /// <summary>
     /// Gets the action target associated with the specified control.

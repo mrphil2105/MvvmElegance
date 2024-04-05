@@ -8,8 +8,7 @@ public class SetTests
     {
         viewModel.Foo = value;
 
-        viewModel.Foo.Should()
-            .Be(value);
+        viewModel.Foo.Should().Be(value);
     }
 
     [Theory]
@@ -18,8 +17,7 @@ public class SetTests
     {
         viewModel.Bar = value;
 
-        viewModel.Bar.Should()
-            .Be(value);
+        viewModel.Bar.Should().Be(value);
     }
 
     [Theory]
@@ -30,8 +28,7 @@ public class SetTests
 
         viewModel.Foo = value;
 
-        monitor.Should()
-            .RaisePropertyChangeFor(vm => vm.Foo);
+        monitor.Should().RaisePropertyChangeFor(vm => vm.Foo);
     }
 
     [Theory]
@@ -42,8 +39,7 @@ public class SetTests
 
         viewModel.Bar = value;
 
-        monitor.Should()
-            .RaisePropertyChangeFor(vm => vm.Bar);
+        monitor.Should().RaisePropertyChangeFor(vm => vm.Bar);
     }
 
     [Theory]
@@ -54,7 +50,6 @@ public class SetTests
 
         viewModel.Foo = viewModel.Foo;
 
-        monitor.Should()
-            .NotRaisePropertyChangeFor(vm => vm.Foo);
+        monitor.Should().NotRaisePropertyChangeFor(vm => vm.Foo);
     }
 }

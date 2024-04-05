@@ -26,8 +26,7 @@ internal class DispatcherWrapper : IDispatcher
         }
         else
         {
-            _dispatcher.InvokeAsync(action, DispatcherPriority.Send)
-                .Wait();
+            _dispatcher.InvokeAsync(action, DispatcherPriority.Send).Wait();
         }
     }
 }

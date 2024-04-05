@@ -22,8 +22,11 @@ public abstract class ConductorBaseWithActiveItem<T> : ConductorBase<T>, IHaveAc
     /// <param name="newItem">The item to change the active item to.</param>
     /// <param name="closePrevious">A boolean indicating whether to close the previous active item.</param>
     /// <param name="cancellationToken">The cancellation token used to cancel the operation.</param>
-    protected virtual async Task ChangeActiveItemAsync(T? newItem, bool closePrevious,
-        CancellationToken cancellationToken = default)
+    protected virtual async Task ChangeActiveItemAsync(
+        T? newItem,
+        bool closePrevious,
+        CancellationToken cancellationToken = default
+    )
     {
         await ScreenExtensions.TryDeactivateAsync(ActiveItem, cancellationToken);
 

@@ -7,8 +7,13 @@ public partial class ViewService
     /// <inheritdoc />
     /// <exception cref="ArgumentNullException">Value of parameter <paramref name="message" /> or <paramref name="caption" /> is <c>null</c>.</exception>
     /// <exception cref="ArgumentOutOfRangeException">Value of parameter <paramref name="button" /> or <paramref name="kind" /> is not defined in the enumeration.</exception>
-    public Task<MessageBoxResult> ShowMessageBoxAsync(object? ownerModel, string message, string caption,
-        MessageBoxButton button = MessageBoxButton.Ok, MessageBoxKind kind = MessageBoxKind.None)
+    public Task<MessageBoxResult> ShowMessageBoxAsync(
+        object? ownerModel,
+        string message,
+        string caption,
+        MessageBoxButton button = MessageBoxButton.Ok,
+        MessageBoxKind kind = MessageBoxKind.None
+    )
     {
         if (message is null)
         {
@@ -22,14 +27,18 @@ public partial class ViewService
 
         if (!Enum.IsDefined(typeof(MessageBoxButton), button))
         {
-            throw new ArgumentOutOfRangeException(nameof(button),
-                $"Value must be defined in the '{typeof(MessageBoxButton).FullName}' enumeration.");
+            throw new ArgumentOutOfRangeException(
+                nameof(button),
+                $"Value must be defined in the '{typeof(MessageBoxButton).FullName}' enumeration."
+            );
         }
 
         if (!Enum.IsDefined(typeof(MessageBoxKind), kind))
         {
-            throw new ArgumentOutOfRangeException(nameof(kind),
-                $"Value must be defined in the '{typeof(MessageBoxKind).FullName}' enumeration.");
+            throw new ArgumentOutOfRangeException(
+                nameof(kind),
+                $"Value must be defined in the '{typeof(MessageBoxKind).FullName}' enumeration."
+            );
         }
 
         return Dispatch.SendOrPostAsync(async () =>
@@ -39,8 +48,7 @@ public partial class ViewService
             // We do not use 'GetOwner' here as we want to allow null as the owner model.
             if (ownerModel != null)
             {
-                owner = _viewManager.GetWindowConductor(ownerModel)
-                    .Window;
+                owner = _viewManager.GetWindowConductor(ownerModel).Window;
             }
 
             bool? dialogResult = null;
@@ -83,18 +91,21 @@ public partial class ViewService
             return button switch
             {
                 MessageBoxButton.Ok => MessageBoxResult.Ok,
-                MessageBoxButton.OkCancel => dialogResult.GetValueOrDefault()
-                    ? MessageBoxResult.Ok
-                    : MessageBoxResult.Cancel,
+                MessageBoxButton.OkCancel
+                    => dialogResult.GetValueOrDefault() ? MessageBoxResult.Ok : MessageBoxResult.Cancel,
                 MessageBoxButton.YesNo => dialogResult.GetValueOrDefault() ? MessageBoxResult.Yes : MessageBoxResult.No,
-                MessageBoxButton.YesNoCancel => dialogResult switch
-                {
-                    true => MessageBoxResult.Yes,
-                    false => MessageBoxResult.No,
-                    null => MessageBoxResult.Cancel
-                },
-                _ => throw new ArgumentOutOfRangeException(nameof(button),
-                    $"Value must be defined in the '{typeof(MessageBoxButton).FullName}' enumeration.")
+                MessageBoxButton.YesNoCancel
+                    => dialogResult switch
+                    {
+                        true => MessageBoxResult.Yes,
+                        false => MessageBoxResult.No,
+                        null => MessageBoxResult.Cancel
+                    },
+                _
+                    => throw new ArgumentOutOfRangeException(
+                        nameof(button),
+                        $"Value must be defined in the '{typeof(MessageBoxButton).FullName}' enumeration."
+                    )
             };
 
             void AddButton(string text, bool? targetDialogResult)
@@ -112,8 +123,12 @@ public partial class ViewService
     }
 
     /// <inheritdoc />
-    public Task<string?> ShowSaveFileDialogAsync(object? ownerModel, string fileName = "",
-        string filter = "All Files|*.*", string title = "")
+    public Task<string?> ShowSaveFileDialogAsync(
+        object? ownerModel,
+        string fileName = "",
+        string filter = "All Files|*.*",
+        string title = ""
+    )
     {
         var filters = CreateFilters(filter);
 
@@ -121,15 +136,25 @@ public partial class ViewService
         {
             var owner = GetOwner(ownerModel);
 
-            var dialog = new SaveFileDialog { Title = title, InitialFileName = fileName, Filters = filters };
+            var dialog = new SaveFileDialog
+            {
+                Title = title,
+                InitialFileName = fileName,
+                Filters = filters
+            };
 
             return dialog.ShowAsync(owner);
         });
     }
 
     /// <inheritdoc />
-    public Task<List<string>?> ShowOpenFileDialogAsync(object? ownerModel, string fileName = "",
-        string filter = "All Files|*.*", bool multiSelect = false, string title = "")
+    public Task<List<string>?> ShowOpenFileDialogAsync(
+        object? ownerModel,
+        string fileName = "",
+        string filter = "All Files|*.*",
+        bool multiSelect = false,
+        string title = ""
+    )
     {
         var filters = CreateFilters(filter);
 
@@ -139,7 +164,10 @@ public partial class ViewService
 
             var dialog = new OpenFileDialog
             {
-                Title = title, InitialFileName = fileName, Filters = filters, AllowMultiple = multiSelect
+                Title = title,
+                InitialFileName = fileName,
+                Filters = filters,
+                AllowMultiple = multiSelect
             };
             var filePaths = await dialog.ShowAsync(owner);
 
@@ -166,8 +194,7 @@ public partial class ViewService
 
         if (ownerModel != null)
         {
-            owner = _viewManager.GetWindowConductor(ownerModel)
-                .Window;
+            owner = _viewManager.GetWindowConductor(ownerModel).Window;
         }
         else
         {
@@ -195,15 +222,20 @@ public partial class ViewService
         for (var i = 0; i < filterParts.Length; i += 2)
         {
             var name = filterParts[i];
-            var extensionParts = filterParts[i + 1]
-                .Split('.');
+            var extensionParts = filterParts[i + 1].Split('.');
 
             if (extensionParts.Length != 2)
             {
                 throw new ArgumentException("The filter string is malformed.", nameof(filter));
             }
 
-            filters.Add(new FileDialogFilter { Name = name, Extensions = new List<string> { extensionParts[1] } });
+            filters.Add(
+                new FileDialogFilter
+                {
+                    Name = name,
+                    Extensions = new List<string> { extensionParts[1] }
+                }
+            );
         }
 
         return filters;

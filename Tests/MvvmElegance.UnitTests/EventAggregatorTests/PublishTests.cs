@@ -6,8 +6,11 @@ public class PublishTests
 {
     [Theory]
     [AutoMoqData]
-    public void Publish_RaisesEvent_WhenSubscribed(EventAggregator eventAggregator, Mock<Action<IEvent>> delegateMock,
-        Mock<IEvent> eventMock)
+    public void Publish_RaisesEvent_WhenSubscribed(
+        EventAggregator eventAggregator,
+        Mock<Action<IEvent>> delegateMock,
+        Mock<IEvent> eventMock
+    )
     {
         eventAggregator.Subscribe(delegateMock.Object, false);
 
@@ -18,8 +21,11 @@ public class PublishTests
 
     [Theory]
     [AutoMoqData]
-    public void Publish_DoesNotRaiseEvent_WhenUnsubscribed(EventAggregator eventAggregator,
-        Mock<Action<IEvent>> delegateMock, Mock<IEvent> eventMock)
+    public void Publish_DoesNotRaiseEvent_WhenUnsubscribed(
+        EventAggregator eventAggregator,
+        Mock<Action<IEvent>> delegateMock,
+        Mock<IEvent> eventMock
+    )
     {
         var unsubscriber = eventAggregator.Subscribe(delegateMock.Object, false);
         unsubscriber.Dispose();

@@ -10,7 +10,8 @@ public class ActivatedEventArgs : ScreenStateEventArgs
     /// </summary>
     /// <param name="wasInitialized">A boolean indicating whether the screen was initialized during the activation.</param>
     /// <param name="previousState">The previous state of the screen.</param>
-    public ActivatedEventArgs(bool wasInitialized, ScreenState previousState) : base(previousState)
+    public ActivatedEventArgs(bool wasInitialized, ScreenState previousState)
+        : base(previousState)
     {
         WasInitialized = wasInitialized;
     }

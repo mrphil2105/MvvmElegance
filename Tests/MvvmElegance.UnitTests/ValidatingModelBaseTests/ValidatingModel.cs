@@ -2,9 +2,8 @@ namespace MvvmElegance.UnitTests.ValidatingModelBaseTests;
 
 public class ValidatingModel : ValidatingModelBase
 {
-    public ValidatingModel(IModelValidator? modelValidator) : base(modelValidator)
-    {
-    }
+    public ValidatingModel(IModelValidator? modelValidator)
+        : base(modelValidator) { }
 
     public Task<bool> ValidateAsync()
     {

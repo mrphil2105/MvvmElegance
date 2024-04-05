@@ -30,8 +30,10 @@ public abstract class BootstrapperBase<TRootViewModel> : IBootstrapper
     {
         if (Application.Current!.ApplicationLifetime is not IClassicDesktopStyleApplicationLifetime appLifetime)
         {
-            throw new InvalidOperationException("The current application lifetime must be of type " +
-                $"'{typeof(IClassicDesktopStyleApplicationLifetime).FullName}'.");
+            throw new InvalidOperationException(
+                "The current application lifetime must be of type "
+                    + $"'{typeof(IClassicDesktopStyleApplicationLifetime).FullName}'."
+            );
         }
 
         var dispatcherWrapper = new DispatcherWrapper(Dispatcher.UIThread);
@@ -49,9 +51,7 @@ public abstract class BootstrapperBase<TRootViewModel> : IBootstrapper
     /// <summary>
     /// Called after the application services have been configured.
     /// </summary>
-    protected virtual void Configure()
-    {
-    }
+    protected virtual void Configure() { }
 
     /// <summary>
     /// Launches the application and displays the root view.
@@ -61,16 +61,20 @@ public abstract class BootstrapperBase<TRootViewModel> : IBootstrapper
     {
         if (Application.Current!.ApplicationLifetime is not IClassicDesktopStyleApplicationLifetime appLifetime)
         {
-            throw new InvalidOperationException("The current application lifetime must be of type " +
-                $"'{typeof(IClassicDesktopStyleApplicationLifetime).FullName}'.");
+            throw new InvalidOperationException(
+                "The current application lifetime must be of type "
+                    + $"'{typeof(IClassicDesktopStyleApplicationLifetime).FullName}'."
+            );
         }
 
-        if (!Application.Current.TryFindResource<IExtendedViewManager>(View.ViewManagerResourceKey,
-                out var viewManager))
+        if (
+            !Application.Current.TryFindResource<IExtendedViewManager>(View.ViewManagerResourceKey, out var viewManager)
+        )
         {
             throw new InvalidOperationException(
-                $"Method '{typeof(BootstrapperBase<>).FullName}.{nameof(Launch)}' cannot be called before " +
-                $"method '{typeof(BootstrapperBase<>).FullName}.{nameof(Initialize)}' has been called.");
+                $"Method '{typeof(BootstrapperBase<>).FullName}.{nameof(Launch)}' cannot be called before "
+                    + $"method '{typeof(BootstrapperBase<>).FullName}.{nameof(Initialize)}' has been called."
+            );
         }
 
         var rootViewModel = GetService<TRootViewModel>();
@@ -78,8 +82,10 @@ public abstract class BootstrapperBase<TRootViewModel> : IBootstrapper
 
         if (rootView is not Window window)
         {
-            throw new InvalidOperationException($"The root view was of type '{rootView.GetType().FullName}', " +
-                $"but must be of type '{typeof(Window).FullName}'.");
+            throw new InvalidOperationException(
+                $"The root view was of type '{rootView.GetType().FullName}', "
+                    + $"but must be of type '{typeof(Window).FullName}'."
+            );
         }
 
         appLifetime.MainWindow = window;
@@ -107,7 +113,5 @@ public abstract class BootstrapperBase<TRootViewModel> : IBootstrapper
     /// <summary>
     /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
     /// </summary>
-    public virtual void Dispose()
-    {
-    }
+    public virtual void Dispose() { }
 }

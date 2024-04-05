@@ -11,57 +11,59 @@ public class DeactivateItemAsyncTests
 
         await conductor.DeactivateItemAsync(conductor.ActiveItem);
 
-        activeItem.State.Should()
-            .Be(ScreenState.Inactive);
+        activeItem.State.Should().Be(ScreenState.Inactive);
     }
 
     [Theory]
     [AutoData]
-    public async Task DeactivateItemAsync_DeactivatesScreen(Conductor<Screen>.Collection.OneActive conductor,
-        Screen screen)
+    public async Task DeactivateItemAsync_DeactivatesScreen(
+        Conductor<Screen>.Collection.OneActive conductor,
+        Screen screen
+    )
     {
         await ScreenExtensions.TryActivateAsync(screen);
 
         await conductor.DeactivateItemAsync(screen);
 
-        screen.State.Should()
-            .Be(ScreenState.Inactive);
+        screen.State.Should().Be(ScreenState.Inactive);
     }
 
     [Theory]
     [AutoData]
-    public async Task DeactivateItemAsync_DoesNotSetScreenParent(Conductor<Screen>.Collection.OneActive conductor,
-        Screen screen)
+    public async Task DeactivateItemAsync_DoesNotSetScreenParent(
+        Conductor<Screen>.Collection.OneActive conductor,
+        Screen screen
+    )
     {
         await conductor.DeactivateItemAsync(screen);
 
-        screen.Parent.Should()
-            .NotBe(conductor);
+        screen.Parent.Should().NotBe(conductor);
     }
 
     [Theory]
     [AutoData]
     public async Task DeactivateItemAsync_ClearsActiveItem_WhenContainsSingle(
-        Conductor<object>.Collection.OneActive conductor)
+        Conductor<object>.Collection.OneActive conductor
+    )
     {
         await conductor.DeactivateItemAsync(conductor.ActiveItem);
 
-        conductor.ActiveItem.Should()
-            .BeNull();
+        conductor.ActiveItem.Should().BeNull();
     }
 
     [Theory]
     [AutoData]
     public async Task DeactivateItemAsync_ChangesActiveItem_WhenContainsMultiple(
-        Conductor<object>.Collection.OneActive conductor, List<object> items)
+        Conductor<object>.Collection.OneActive conductor,
+        List<object> items
+    )
     {
         conductor.Items.AddRange(items);
         await conductor.ActivateItemAsync(items.Last());
 
         await conductor.DeactivateItemAsync(items.Last());
 
-        conductor.ActiveItem.Should()
-            .Be(conductor.Items[^2]);
+        conductor.ActiveItem.Should().Be(conductor.Items[^2]);
     }
 
     [Theory]
@@ -70,7 +72,6 @@ public class DeactivateItemAsyncTests
     {
         await conductor.DeactivateItemAsync(item);
 
-        conductor.Items.Should()
-            .NotContain(item);
+        conductor.Items.Should().NotContain(item);
     }
 }

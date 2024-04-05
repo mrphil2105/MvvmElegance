@@ -10,7 +10,8 @@ public class ViewLocationException : Exception
     /// </summary>
     /// <param name="message">A message to describe the error.</param>
     /// <param name="modelType">The type of model from which a view type could not be found.</param>
-    public ViewLocationException(string message, Type modelType) : base(message)
+    public ViewLocationException(string message, Type modelType)
+        : base(message)
     {
         ModelType = modelType;
     }

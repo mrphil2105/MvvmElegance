@@ -11,8 +11,7 @@ public class CloseItemAsyncTests
     {
         await conductor.CloseItemAsync(screen);
 
-        screen.State.Should()
-            .Be(ScreenState.Closed);
+        screen.State.Should().Be(ScreenState.Closed);
     }
 
     [Theory]
@@ -23,8 +22,7 @@ public class CloseItemAsyncTests
 
         await conductor.CloseItemAsync(screen);
 
-        screen.Parent.Should()
-            .BeNull();
+        screen.Parent.Should().BeNull();
     }
 
     [Theory]
@@ -35,14 +33,15 @@ public class CloseItemAsyncTests
 
         await conductor.CloseItemAsync(screen);
 
-        conductor.Items.Should()
-            .NotContain(screen);
+        conductor.Items.Should().NotContain(screen);
     }
 
     [Theory]
     [AutoMoqData]
-    public async Task CloseItemAsync_CallsDispose_WhenDisposeChildrenIsTrue(Mock<IDisposable> disposableMock,
-        Conductor<IDisposable>.Collection.AllActive conductor)
+    public async Task CloseItemAsync_CallsDispose_WhenDisposeChildrenIsTrue(
+        Mock<IDisposable> disposableMock,
+        Conductor<IDisposable>.Collection.AllActive conductor
+    )
     {
         await conductor.CloseItemAsync(disposableMock.Object);
 
@@ -51,10 +50,13 @@ public class CloseItemAsyncTests
 
     [Theory]
     [AutoMoqData]
-    public async Task CloseItemAsync_DoesNotCallDispose_WhenDisposeChildrenIsFalse(Mock<IDisposable> disposableMock,
-        Conductor<IDisposable>.Collection.AllActive conductor)
+    public async Task CloseItemAsync_DoesNotCallDispose_WhenDisposeChildrenIsFalse(
+        Mock<IDisposable> disposableMock,
+        Conductor<IDisposable>.Collection.AllActive conductor
+    )
     {
-        var property = conductor.GetType()
+        var property = conductor
+            .GetType()
             .GetProperty("DisposeChildren", BindingFlags.Instance | BindingFlags.NonPublic);
         property!.SetValue(conductor, false);
 

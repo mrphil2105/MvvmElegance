@@ -15,8 +15,12 @@ public static class ConductorExtensions
     /// <param name="isActive">A boolean indicating whether to activate or deactivate.</param>
     /// <param name="cancellationToken">The cancellation token used to cancel the operation.</param>
     /// <returns>A task representing the asynchronous operation.</returns>
-    public static Task SetParentAndSetActiveAsync(this IConductor? conductor, object? item, bool isActive,
-        CancellationToken cancellationToken = default)
+    public static Task SetParentAndSetActiveAsync(
+        this IConductor? conductor,
+        object? item,
+        bool isActive,
+        CancellationToken cancellationToken = default
+    )
     {
         if (item is IChild child && child.Parent != conductor)
         {
@@ -37,15 +41,20 @@ public static class ConductorExtensions
     /// <param name="cancellationToken">The cancellation token used to cancel the operation.</param>
     /// <returns>A task representing the asynchronous operation.</returns>
     /// <exception cref="ArgumentNullException">Value of parameter <paramref name="items" /> is <c>null</c>.</exception>
-    public static Task SetParentAndSetActiveAsync(this IConductor? conductor, IEnumerable items, bool isActive,
-        CancellationToken cancellationToken = default)
+    public static Task SetParentAndSetActiveAsync(
+        this IConductor? conductor,
+        IEnumerable items,
+        bool isActive,
+        CancellationToken cancellationToken = default
+    )
     {
         if (items is null)
         {
             throw new ArgumentNullException(nameof(items));
         }
 
-        var tasks = items.Cast<object>()
+        var tasks = items
+            .Cast<object>()
             .Select(i => conductor.SetParentAndSetActiveAsync(i, isActive, cancellationToken))
             .ToList();
 
@@ -60,8 +69,12 @@ public static class ConductorExtensions
     /// <param name="shouldDispose">A boolean indicating whether to dispose the item.</param>
     /// <param name="cancellationToken">The cancellation token used to cancel the operation.</param>
     /// <returns>A task representing the asynchronous operation.</returns>
-    public static async Task TryCloseAndCleanUpAsync(this IConductor? conductor, object? item, bool shouldDispose,
-        CancellationToken cancellationToken = default)
+    public static async Task TryCloseAndCleanUpAsync(
+        this IConductor? conductor,
+        object? item,
+        bool shouldDispose,
+        CancellationToken cancellationToken = default
+    )
     {
         await ScreenExtensions.TryCloseAsync(item, cancellationToken);
 
@@ -85,15 +98,20 @@ public static class ConductorExtensions
     /// <param name="cancellationToken">The cancellation token used to cancel the operation.</param>
     /// <returns>A task representing the asynchronous operation.</returns>
     /// <exception cref="ArgumentNullException">Value of parameter <paramref name="items" /> is <c>null</c>.</exception>
-    public static Task TryCloseAndCleanUpAsync(this IConductor? conductor, IEnumerable items, bool shouldDispose,
-        CancellationToken cancellationToken = default)
+    public static Task TryCloseAndCleanUpAsync(
+        this IConductor? conductor,
+        IEnumerable items,
+        bool shouldDispose,
+        CancellationToken cancellationToken = default
+    )
     {
         if (items is null)
         {
             throw new ArgumentNullException(nameof(items));
         }
 
-        var tasks = items.Cast<object>()
+        var tasks = items
+            .Cast<object>()
             .Select(i => conductor.TryCloseAndCleanUpAsync(i, shouldDispose, cancellationToken))
             .ToList();
 

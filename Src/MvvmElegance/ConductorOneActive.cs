@@ -213,10 +213,8 @@ public partial class Conductor<T>
                     case NotifyCollectionChangedAction.Replace:
                         _removedIndex = e.OldStartingIndex;
 
-                        var oldItems = e.OldItems.Cast<T>()
-                            .ToList();
-                        var newItems = e.NewItems.Cast<T>()
-                            .ToList();
+                        var oldItems = e.OldItems.Cast<T>().ToList();
+                        var newItems = e.NewItems.Cast<T>().ToList();
 
                         await ReplaceActiveItemIfNeededAsync();
                         // Items may be replaced with themselves, so prevent a close/cleanup followed by a reactivation.

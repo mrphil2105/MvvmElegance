@@ -13,8 +13,7 @@ internal class ServicesModule : Module
 
     protected override void Load(ContainerBuilder builder)
     {
-        var appAssembly = _bootstrapper.GetType()
-            .Assembly;
+        var appAssembly = _bootstrapper.GetType().Assembly;
 
         builder.Register<ServiceFactory>(c =>
         {
@@ -23,17 +22,12 @@ internal class ServicesModule : Module
             return t => innerContext.Resolve(t);
         });
 
-        builder.RegisterType<EventAggregator>()
-            .As<IEventAggregator>()
-            .SingleInstance();
+        builder.RegisterType<EventAggregator>().As<IEventAggregator>().SingleInstance();
 
-        builder.RegisterType<Timer>()
-            .As<ITimer>();
+        builder.RegisterType<Timer>().As<ITimer>();
 
-        builder.Register(_ => new DefaultViewTypeLocator(appAssembly))
-            .As<IViewTypeLocator>();
+        builder.Register(_ => new DefaultViewTypeLocator(appAssembly)).As<IViewTypeLocator>();
 
-        builder.RegisterType<ViewService>()
-            .As<IViewService>();
+        builder.RegisterType<ViewService>().As<IViewService>();
     }
 }

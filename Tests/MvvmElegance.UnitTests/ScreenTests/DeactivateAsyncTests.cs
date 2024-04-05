@@ -10,8 +10,7 @@ public class DeactivateAsyncTests
 
         await ScreenExtensions.TryDeactivateAsync(screen);
 
-        screen.State.Should()
-            .Be(ScreenState.Inactive);
+        screen.State.Should().Be(ScreenState.Inactive);
     }
 
     [Theory]
@@ -23,8 +22,7 @@ public class DeactivateAsyncTests
 
         await ScreenExtensions.TryDeactivateAsync(screen);
 
-        monitor.Should()
-            .Raise(nameof(Screen.Deactivated));
+        monitor.Should().Raise(nameof(Screen.Deactivated));
     }
 
     [Theory]
@@ -36,10 +34,8 @@ public class DeactivateAsyncTests
 
         await ScreenExtensions.TryDeactivateAsync(screen);
 
-        monitor.Should()
-            .Raise(nameof(Screen.Activated));
-        monitor.Should()
-            .Raise(nameof(Screen.Deactivated));
+        monitor.Should().Raise(nameof(Screen.Activated));
+        monitor.Should().Raise(nameof(Screen.Deactivated));
     }
 
     [Theory]
@@ -50,7 +46,6 @@ public class DeactivateAsyncTests
 
         await ScreenExtensions.TryDeactivateAsync(screen);
 
-        monitor.Should()
-            .NotRaise(nameof(Screen.Deactivated));
+        monitor.Should().NotRaise(nameof(Screen.Deactivated));
     }
 }

@@ -10,8 +10,7 @@ public class ItemsAddTests
 
         conductor.Items.Add(screen);
 
-        screen.State.Should()
-            .Be(ScreenState.Inactive);
+        screen.State.Should().Be(ScreenState.Inactive);
     }
 
     [Theory]
@@ -20,7 +19,6 @@ public class ItemsAddTests
     {
         conductor.Items.Add(screen);
 
-        screen.Parent.Should()
-            .Be(conductor);
+        screen.Parent.Should().Be(conductor);
     }
 }

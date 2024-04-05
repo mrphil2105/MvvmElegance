@@ -10,8 +10,7 @@ public class DeactivateItemAsyncTests
 
         await conductor.DeactivateItemAsync(conductor.ActiveItem);
 
-        conductor.ActiveItem!.State.Should()
-            .Be(ScreenState.Inactive);
+        conductor.ActiveItem!.State.Should().Be(ScreenState.Inactive);
     }
 
     [Theory]
@@ -22,8 +21,7 @@ public class DeactivateItemAsyncTests
 
         await conductor.DeactivateItemAsync(screen);
 
-        screen.State.Should()
-            .Be(ScreenState.Active);
+        screen.State.Should().Be(ScreenState.Active);
     }
 
     [Theory]
@@ -32,7 +30,6 @@ public class DeactivateItemAsyncTests
     {
         await conductor.DeactivateItemAsync(screen);
 
-        screen.Parent.Should()
-            .NotBe(conductor);
+        screen.Parent.Should().NotBe(conductor);
     }
 }

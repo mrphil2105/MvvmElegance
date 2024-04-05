@@ -9,14 +9,17 @@ public enum ActionUnavailableBehavior
     /// Specifies that default behavior should be used. It depends on whether the behavior applies to an action method or a target.
     /// </summary>
     Default,
+
     /// <summary>
     /// Specifies that an exception should be thrown.
     /// </summary>
     Throw,
+
     /// <summary>
     /// Specifies that the control should be enabled and do nothing.
     /// </summary>
     Enable,
+
     /// <summary>
     /// Specifies that the control should be disabled.
     /// </summary>

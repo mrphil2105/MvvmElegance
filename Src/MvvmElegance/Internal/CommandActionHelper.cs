@@ -23,8 +23,10 @@ internal static class CommandActionHelper
 
         if (methodMethod.ReturnType != typeof(void) && methodMethod.ReturnType != typeof(Task))
         {
-            throw new ActionMethodInvalidException($"Action method '{targetType.FullName}.{methodName}' must " +
-                $"have return type '{typeof(void).FullName}' or '{typeof(Task).FullName}'.");
+            throw new ActionMethodInvalidException(
+                $"Action method '{targetType.FullName}.{methodName}' must "
+                    + $"have return type '{typeof(void).FullName}' or '{typeof(Task).FullName}'."
+            );
         }
 
         var parameters = methodMethod.GetParameters();
@@ -32,7 +34,8 @@ internal static class CommandActionHelper
         if (parameters.Length > 1)
         {
             throw new ActionMethodInvalidException(
-                $"Action method '{targetType.FullName}.{methodName}' must have zero or one parameters.");
+                $"Action method '{targetType.FullName}.{methodName}' must have zero or one parameters."
+            );
         }
 
         var parameter = parameters.SingleOrDefault();
@@ -41,8 +44,8 @@ internal static class CommandActionHelper
         var targetExpr = Expression.Constant(target);
         var argExpr = Expression.Parameter(typeof(object));
         var convertExpr = parameter != null ? Expression.Convert(argExpr, parameter.ParameterType) : null;
-        var bodyExpr = (Expression)Expression.Call(targetExpr, methodMethod,
-            convertExpr != null ? new Expression[] { convertExpr } : null);
+        var bodyExpr = (Expression)
+            Expression.Call(targetExpr, methodMethod, convertExpr != null ? new Expression[] { convertExpr } : null);
 
         if (returnType == typeof(void))
         {
@@ -50,8 +53,7 @@ internal static class CommandActionHelper
             bodyExpr = Expression.Block(bodyExpr, nullExpr);
         }
 
-        return Expression.Lambda<Func<object?, Task?>>(bodyExpr, argExpr)
-            .Compile();
+        return Expression.Lambda<Func<object?, Task?>>(bodyExpr, argExpr).Compile();
     }
 
     public static Func<bool>? CreateGuardFunc(object target, string guardName)
@@ -66,20 +68,21 @@ internal static class CommandActionHelper
 
         if (guardProperty.PropertyType != typeof(bool))
         {
-            throw new ActionGuardInvalidException($"Action guard '{targetType.FullName}.{guardName}' must " +
-                $"have type '{typeof(bool).FullName}'.");
+            throw new ActionGuardInvalidException(
+                $"Action guard '{targetType.FullName}.{guardName}' must " + $"have type '{typeof(bool).FullName}'."
+            );
         }
 
         if (guardProperty.GetGetMethod() == null)
         {
-            throw new ActionGuardInvalidException($"Action guard '{targetType.FullName}.{guardName}' must " +
-                "have a public getter.");
+            throw new ActionGuardInvalidException(
+                $"Action guard '{targetType.FullName}.{guardName}' must " + "have a public getter."
+            );
         }
 
         var targetExpr = Expression.Constant(target);
         var propertyExpr = Expression.Property(targetExpr, guardProperty);
 
-        return Expression.Lambda<Func<bool>>(propertyExpr)
-            .Compile();
+        return Expression.Lambda<Func<bool>>(propertyExpr).Compile();
     }
 }

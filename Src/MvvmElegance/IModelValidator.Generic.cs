@@ -5,6 +5,4 @@ namespace MvvmElegance;
 /// </summary>
 /// <typeparam name="T">The type of the model to validate.</typeparam>
 // ReSharper disable once UnusedTypeParameter
-public interface IModelValidator<in T> : IModelValidator
-{
-}
+public interface IModelValidator<in T> : IModelValidator { }

@@ -10,8 +10,7 @@ public class ItemsClearTests
 
         conductor.Items.Clear();
 
-        screens.Should()
-            .OnlyContain(s => s.State == ScreenState.Closed);
+        screens.Should().OnlyContain(s => s.State == ScreenState.Closed);
     }
 
     [Theory]
@@ -22,7 +21,6 @@ public class ItemsClearTests
 
         conductor.Items.Clear();
 
-        screens.Should()
-            .OnlyContain(s => s.Parent == null);
+        screens.Should().OnlyContain(s => s.Parent == null);
     }
 }

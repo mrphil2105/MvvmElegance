@@ -9,7 +9,6 @@ public class ActionTargetNullException : Exception
     /// Initializes a new instance of the <see cref="ActionTargetNullException" /> class with the specified message.
     /// </summary>
     /// <param name="message">A message to describe the error.</param>
-    public ActionTargetNullException(string message) : base(message)
-    {
-    }
+    public ActionTargetNullException(string message)
+        : base(message) { }
 }

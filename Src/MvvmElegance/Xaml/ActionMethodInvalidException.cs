@@ -9,7 +9,6 @@ public class ActionMethodInvalidException : Exception
     /// Initializes a new instance of the <see cref="ActionMethodInvalidException" /> class with the specified message.
     /// </summary>
     /// <param name="message">A message to describe the error.</param>
-    public ActionMethodInvalidException(string message) : base(message)
-    {
-    }
+    public ActionMethodInvalidException(string message)
+        : base(message) { }
 }

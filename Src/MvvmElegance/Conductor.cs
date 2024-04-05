@@ -52,8 +52,11 @@ public partial class Conductor<T> : ConductorBaseWithActiveItem<T>
     /// <returns>A task representing the asynchronous operation.</returns>
     public override async Task CloseItemAsync(T? item, CancellationToken cancellationToken = default)
     {
-        if (item != null && EqualityComparer<T?>.Default.Equals(item, ActiveItem) &&
-            await CanCloseItemAsync(item, cancellationToken))
+        if (
+            item != null
+            && EqualityComparer<T?>.Default.Equals(item, ActiveItem)
+            && await CanCloseItemAsync(item, cancellationToken)
+        )
         {
             await ChangeActiveItemAsync(null, true, cancellationToken);
         }

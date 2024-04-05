@@ -9,7 +9,6 @@ public class ActionGuardInvalidException : Exception
     /// Initializes a new instance of the <see cref="ActionGuardInvalidException" /> class with the specified message.
     /// </summary>
     /// <param name="message">A message to describe the error.</param>
-    public ActionGuardInvalidException(string message) : base(message)
-    {
-    }
+    public ActionGuardInvalidException(string message)
+        : base(message) { }
 }

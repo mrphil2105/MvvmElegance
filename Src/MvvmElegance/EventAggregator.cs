@@ -28,8 +28,9 @@ public class EventAggregator : IEventAggregator
             throw new ArgumentNullException(nameof(action));
         }
 
-        var subscriptionStore = (EventSubscriptionStore<TEvent>)_subscriptionStores.GetOrAdd(typeof(TEvent),
-            _ => new EventSubscriptionStore<TEvent>());
+        var subscriptionStore =
+            (EventSubscriptionStore<TEvent>)
+                _subscriptionStores.GetOrAdd(typeof(TEvent), _ => new EventSubscriptionStore<TEvent>());
         var subscription = new EventSubscription<TEvent>(action, useDispatcher);
         subscriptionStore.Add(subscription);
 

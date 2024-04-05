@@ -10,7 +10,6 @@ public class DeactivateAsyncTests
 
         await ScreenExtensions.TryDeactivateAsync(conductor);
 
-        conductor.ActiveItem!.State.Should()
-            .Be(ScreenState.Inactive);
+        conductor.ActiveItem!.State.Should().Be(ScreenState.Inactive);
     }
 }

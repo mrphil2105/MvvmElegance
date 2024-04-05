@@ -49,8 +49,13 @@ public static class ViewServiceExtensions
     /// <param name="kind">The kind of message box to create.</param>
     /// <returns>A task representing the asynchronous operation, with a message box result from the user action.</returns>
     /// <exception cref="ArgumentNullException">Value of parameter <paramref name="viewService" /> is <c>null</c>.</exception>
-    public static Task<MessageBoxResult> ShowMessageBoxAsync(this IViewService viewService, string message,
-        string caption, MessageBoxButton button = MessageBoxButton.Ok, MessageBoxKind kind = MessageBoxKind.None)
+    public static Task<MessageBoxResult> ShowMessageBoxAsync(
+        this IViewService viewService,
+        string message,
+        string caption,
+        MessageBoxButton button = MessageBoxButton.Ok,
+        MessageBoxKind kind = MessageBoxKind.None
+    )
     {
         if (viewService is null)
         {
@@ -69,8 +74,12 @@ public static class ViewServiceExtensions
     /// <param name="title">The window title to display.</param>
     /// <returns>A task representing the asynchronous operation, with the selected file path.</returns>
     /// <exception cref="ArgumentNullException">Value of parameter <paramref name="viewService" /> is <c>null</c>.</exception>
-    public static Task<string?> ShowSaveFileDialogAsync(this IViewService viewService, string fileName = "",
-        string filter = "All Files|*.*", string title = "")
+    public static Task<string?> ShowSaveFileDialogAsync(
+        this IViewService viewService,
+        string fileName = "",
+        string filter = "All Files|*.*",
+        string title = ""
+    )
     {
         if (viewService is null)
         {
@@ -90,8 +99,13 @@ public static class ViewServiceExtensions
     /// <param name="title">The window title to display.</param>
     /// <returns>A task representing the asynchronous operation, with the selected file path.</returns>
     /// <exception cref="ArgumentNullException">Value of parameter <paramref name="viewService" /> is <c>null</c>.</exception>
-    public static Task<List<string>?> ShowOpenFileDialogAsync(this IViewService viewService, string fileName = "",
-        string filter = "All Files|*.*", bool multiSelect = false, string title = "")
+    public static Task<List<string>?> ShowOpenFileDialogAsync(
+        this IViewService viewService,
+        string fileName = "",
+        string filter = "All Files|*.*",
+        bool multiSelect = false,
+        string title = ""
+    )
     {
         if (viewService is null)
         {
@@ -109,8 +123,11 @@ public static class ViewServiceExtensions
     /// <param name="title">The window title to display.</param>
     /// <returns>A task representing the asynchronous operation, with the selected directory path.</returns>
     /// <exception cref="ArgumentNullException">Value of parameter <paramref name="viewService" /> is <c>null</c>.</exception>
-    public static Task<string?> ShowOpenFolderDialogAsync(this IViewService viewService, string directoryPath = "",
-        string title = "")
+    public static Task<string?> ShowOpenFolderDialogAsync(
+        this IViewService viewService,
+        string directoryPath = "",
+        string title = ""
+    )
     {
         if (viewService is null)
         {

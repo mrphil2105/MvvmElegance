@@ -6,8 +6,10 @@ public class RemoveRangeTests
 {
     [Theory]
     [AutoData]
-    public void RemoveRange_RemovesRange_WhenRemovingRange(BindableCollection<string> collection,
-        [CollectionSize(6)] List<string> items)
+    public void RemoveRange_RemovesRange_WhenRemovingRange(
+        BindableCollection<string> collection,
+        [CollectionSize(6)] List<string> items
+    )
     {
         const int index = 2;
         const int count = 3;
@@ -15,14 +17,15 @@ public class RemoveRangeTests
 
         collection.RemoveRange(index, count);
 
-        collection.Should()
-            .BeEquivalentTo(items.Where((_, i) => i is < index or >= index + count));
+        collection.Should().BeEquivalentTo(items.Where((_, i) => i is < index or >= index + count));
     }
 
     [Theory]
     [AutoData]
-    public void RemoveRange_DoesNotRemoveRange_WhenRemovingNone(BindableCollection<string> collection,
-        [CollectionSize(6)] List<string> items)
+    public void RemoveRange_DoesNotRemoveRange_WhenRemovingNone(
+        BindableCollection<string> collection,
+        [CollectionSize(6)] List<string> items
+    )
     {
         const int index = 2;
         const int count = 0;
@@ -30,14 +33,15 @@ public class RemoveRangeTests
 
         collection.RemoveRange(index, count);
 
-        collection.Should()
-            .BeEquivalentTo(items);
+        collection.Should().BeEquivalentTo(items);
     }
 
     [Theory]
     [AutoData]
-    public void RemoveRange_RaisesCollectionChanged_WhenRemovingRange(BindableCollection<string> collection,
-        [CollectionSize(6)] List<string> items)
+    public void RemoveRange_RaisesCollectionChanged_WhenRemovingRange(
+        BindableCollection<string> collection,
+        [CollectionSize(6)] List<string> items
+    )
     {
         const int index = 2;
         const int count = 3;
@@ -46,15 +50,18 @@ public class RemoveRangeTests
 
         collection.RemoveRange(index, count);
 
-        monitor.Should()
+        monitor
+            .Should()
             .Raise(nameof(BindableCollection<string>.CollectionChanged))
             .WithArgs<NotifyCollectionChangedEventArgs>(e => e.Action == NotifyCollectionChangedAction.Reset);
     }
 
     [Theory]
     [AutoData]
-    public void RemoveRange_DoesNotRaiseCollectionChanged_WhenRemovingNone(BindableCollection<string> collection,
-        [CollectionSize(6)] List<string> items)
+    public void RemoveRange_DoesNotRaiseCollectionChanged_WhenRemovingNone(
+        BindableCollection<string> collection,
+        [CollectionSize(6)] List<string> items
+    )
     {
         const int index = 2;
         const int count = 0;
@@ -63,7 +70,6 @@ public class RemoveRangeTests
 
         collection.RemoveRange(index, count);
 
-        monitor.Should()
-            .NotRaise(nameof(BindableCollection<string>.CollectionChanged));
+        monitor.Should().NotRaise(nameof(BindableCollection<string>.CollectionChanged));
     }
 }

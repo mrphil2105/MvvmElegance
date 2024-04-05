@@ -10,8 +10,7 @@ public class AddRangeTests
     {
         collection.AddRange(items);
 
-        collection.Should()
-            .BeEquivalentTo(items);
+        collection.Should().BeEquivalentTo(items);
     }
 
     [Theory]
@@ -20,20 +19,22 @@ public class AddRangeTests
     {
         collection.AddRange(Enumerable.Empty<string>());
 
-        collection.Should()
-            .BeEmpty();
+        collection.Should().BeEmpty();
     }
 
     [Theory]
     [AutoData]
-    public void AddRange_RaisesCollectionChanged_WhenAddingNonEmpty(BindableCollection<string> collection,
-        List<string> items)
+    public void AddRange_RaisesCollectionChanged_WhenAddingNonEmpty(
+        BindableCollection<string> collection,
+        List<string> items
+    )
     {
         using var monitor = collection.Monitor();
 
         collection.AddRange(items);
 
-        monitor.Should()
+        monitor
+            .Should()
             .Raise(nameof(BindableCollection<string>.CollectionChanged))
             .WithArgs<NotifyCollectionChangedEventArgs>(e => e.Action == NotifyCollectionChangedAction.Reset);
     }
@@ -46,7 +47,6 @@ public class AddRangeTests
 
         collection.AddRange(Enumerable.Empty<string>());
 
-        monitor.Should()
-            .NotRaise(nameof(BindableCollection<string>.CollectionChanged));
+        monitor.Should().NotRaise(nameof(BindableCollection<string>.CollectionChanged));
     }
 }

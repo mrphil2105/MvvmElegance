@@ -46,8 +46,11 @@ public abstract class PropertyChangedBase : INotifyPropertyChanged
     /// <returns>A boolean indicating whether the value has changed.</returns>
     /// <exception cref="ArgumentNullException">Value of parameter <paramref name="targetExpr" /> is <c>null</c>.</exception>
     /// <exception cref="ArgumentException">Value of parameter <paramref name="targetExpr" /> does not contain a body that is a member expression.</exception>
-    protected virtual bool Set<T>(Expression<Func<T>> targetExpr, T value,
-        [CallerMemberName] string? propertyName = null)
+    protected virtual bool Set<T>(
+        Expression<Func<T>> targetExpr,
+        T value,
+        [CallerMemberName] string? propertyName = null
+    )
     {
         if (targetExpr is null)
         {
@@ -57,9 +60,13 @@ public abstract class PropertyChangedBase : INotifyPropertyChanged
         PropertyInfo? targetProperty;
         FieldInfo? targetField = null;
 
-        if (targetExpr.Body is not MemberExpression memberExpr ||
-            ((targetProperty = memberExpr.Member as PropertyInfo) is null &&
-                (targetField = memberExpr.Member as FieldInfo) is null))
+        if (
+            targetExpr.Body is not MemberExpression memberExpr
+            || (
+                (targetProperty = memberExpr.Member as PropertyInfo) is null
+                && (targetField = memberExpr.Member as FieldInfo) is null
+            )
+        )
         {
             throw new ArgumentException("Value must contain a body that is a member expression.", nameof(targetExpr));
         }

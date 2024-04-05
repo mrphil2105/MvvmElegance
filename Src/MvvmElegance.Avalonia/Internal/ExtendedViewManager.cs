@@ -38,7 +38,9 @@ internal class ExtendedViewManager : IExtendedViewManager
         if (!typeof(Control).IsAssignableFrom(viewType))
         {
             throw new ViewLocationException(
-                $"The view type '{viewType.FullName}' must derive from type '{typeof(Control).FullName}'.", modelType);
+                $"The view type '{viewType.FullName}' must derive from type '{typeof(Control).FullName}'.",
+                modelType
+            );
         }
 
         var view = (Control)_serviceFactory(viewType);
@@ -78,7 +80,8 @@ internal class ExtendedViewManager : IExtendedViewManager
             if (view is Window)
             {
                 throw new InvalidOperationException(
-                    $"The associated view must not be of type '{typeof(Window).FullName}'.");
+                    $"The associated view must not be of type '{typeof(Window).FullName}'."
+                );
             }
 
             SetContent(control, view);
@@ -98,8 +101,10 @@ internal class ExtendedViewManager : IExtendedViewManager
 
         if (!_modelWindowConductors.TryGetValue(model, out var windowConductor))
         {
-            throw new InvalidOperationException($"No owner window of type '{typeof(Window).FullName}' could be " +
-                $"found for model of type '{model.GetType().FullName}'.");
+            throw new InvalidOperationException(
+                $"No owner window of type '{typeof(Window).FullName}' could be "
+                    + $"found for model of type '{model.GetType().FullName}'."
+            );
         }
 
         return windowConductor;
@@ -115,8 +120,10 @@ internal class ExtendedViewManager : IExtendedViewManager
 
         if (!_modelWindowConductors.TryGetValue(model, out var windowConductor))
         {
-            throw new InvalidOperationException($"No owner window of type '{typeof(Window).FullName}' could be " +
-                $"found for model of type '{model.GetType().FullName}'.");
+            throw new InvalidOperationException(
+                $"No owner window of type '{typeof(Window).FullName}' could be "
+                    + $"found for model of type '{model.GetType().FullName}'."
+            );
         }
 
         windowConductor.Close(dialogResult);
@@ -129,13 +136,15 @@ internal class ExtendedViewManager : IExtendedViewManager
 
         // TODO: Is it guaranteed that all 'Content' properties have a 'ContentAttribute'?
         // If not we need to get the property by name as a fallback.
-        var contentProperty = controlType.GetProperties()
+        var contentProperty = controlType
+            .GetProperties()
             .SingleOrDefault(p => p.GetCustomAttribute<ContentAttribute>() != null);
 
         if (contentProperty == null)
         {
             throw new InvalidOperationException(
-                $"Unable to find a content property on view type '{controlType.FullName}'.");
+                $"Unable to find a content property on view type '{controlType.FullName}'."
+            );
         }
 
         contentProperty.SetValue(control, view);
@@ -148,8 +157,7 @@ internal class ExtendedViewManager : IExtendedViewManager
         var window = (Window)sender;
         window.Closed -= OnWindowClosed;
 
-        var entriesToRemove = _modelWindowConductors.Where(kvp => ReferenceEquals(kvp.Value.Window, window))
-            .ToList();
+        var entriesToRemove = _modelWindowConductors.Where(kvp => ReferenceEquals(kvp.Value.Window, window)).ToList();
 
         foreach (var entry in entriesToRemove)
         {

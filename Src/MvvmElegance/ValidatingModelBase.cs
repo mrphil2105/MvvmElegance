@@ -107,12 +107,10 @@ public abstract class ValidatingModelBase : PropertyChangedBase, INotifyDataErro
             throw new InvalidOperationException("Unable to validate when there is no validator set for the model.");
         }
 
-        var result = await Validator.ValidateAsync(cancellationToken)
-            .ConfigureAwait(false);
+        var result = await Validator.ValidateAsync(cancellationToken).ConfigureAwait(false);
         var changedProperties = new List<string>();
 
-        await _propertyErrorsLock.WaitAsync(cancellationToken)
-            .ConfigureAwait(false);
+        await _propertyErrorsLock.WaitAsync(cancellationToken).ConfigureAwait(false);
 
         try
         {
@@ -140,8 +138,7 @@ public abstract class ValidatingModelBase : PropertyChangedBase, INotifyDataErro
                 }
             }
 
-            var removedProperties = _propertyErrors.Keys.Except(result?.Keys ?? Enumerable.Empty<string>())
-                .ToList();
+            var removedProperties = _propertyErrors.Keys.Except(result?.Keys ?? Enumerable.Empty<string>()).ToList();
 
             foreach (var propertyName in removedProperties)
             {
@@ -169,8 +166,10 @@ public abstract class ValidatingModelBase : PropertyChangedBase, INotifyDataErro
     /// <param name="cancellationToken">The cancellation token used to cancel the operation.</param>
     /// <returns>A task representing the asynchronous operation, with a boolean indicating whether the property has errors.</returns>
     /// <exception cref="InvalidOperationException">There is no validator set for the model.</exception>
-    protected virtual async Task<bool> ValidatePropertyAsync(string? propertyName,
-        CancellationToken cancellationToken = default)
+    protected virtual async Task<bool> ValidatePropertyAsync(
+        string? propertyName,
+        CancellationToken cancellationToken = default
+    )
     {
         if (Validator == null)
         {
@@ -179,13 +178,11 @@ public abstract class ValidatingModelBase : PropertyChangedBase, INotifyDataErro
 
         propertyName ??= string.Empty;
 
-        var result = await Validator.ValidatePropertyAsync(propertyName, cancellationToken)
-            .ConfigureAwait(false);
+        var result = await Validator.ValidatePropertyAsync(propertyName, cancellationToken).ConfigureAwait(false);
         var newErrors = result?.ToList();
         var haveErrorsChanged = false;
 
-        await _propertyErrorsLock.WaitAsync(cancellationToken)
-            .ConfigureAwait(false);
+        await _propertyErrorsLock.WaitAsync(cancellationToken).ConfigureAwait(false);
 
         try
         {
@@ -221,8 +218,10 @@ public abstract class ValidatingModelBase : PropertyChangedBase, INotifyDataErro
     /// <typeparam name="TProperty">The type of the specified property.</typeparam>
     /// <returns>A task representing the asynchronous operation, with a boolean indicating whether the property has errors.</returns>
     /// <exception cref="InvalidOperationException">There is no validator set for the model.</exception>
-    protected virtual Task<bool> ValidatePropertyAsync<TProperty>(Expression<Func<TProperty>> propertyExpr,
-        CancellationToken cancellationToken = default)
+    protected virtual Task<bool> ValidatePropertyAsync<TProperty>(
+        Expression<Func<TProperty>> propertyExpr,
+        CancellationToken cancellationToken = default
+    )
     {
         return ValidatePropertyAsync(propertyExpr.GetPropertyName(), cancellationToken);
     }
@@ -277,8 +276,7 @@ public abstract class ValidatingModelBase : PropertyChangedBase, INotifyDataErro
 
         if (Validator != null && AutoValidate && e.PropertyName != nameof(HasErrors))
         {
-            await ValidatePropertyAsync(e.PropertyName)
-                .ConfigureAwait(false);
+            await ValidatePropertyAsync(e.PropertyName).ConfigureAwait(false);
         }
     }
 

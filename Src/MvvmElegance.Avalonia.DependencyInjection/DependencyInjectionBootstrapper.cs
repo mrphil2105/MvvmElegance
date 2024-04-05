@@ -17,9 +17,11 @@ public abstract class DependencyInjectionBootstrapper<TRootViewModel> : Bootstra
     {
         if (_serviceProvider == null)
         {
-            throw new InvalidOperationException($"Method '{typeof(DependencyInjectionBootstrapper<>).FullName}." +
-                $"{nameof(GetService)}' cannot be called before method " +
-                $"'{typeof(DependencyInjectionBootstrapper<>).FullName}.{nameof(ConfigureServices)}' has been called.");
+            throw new InvalidOperationException(
+                $"Method '{typeof(DependencyInjectionBootstrapper<>).FullName}."
+                    + $"{nameof(GetService)}' cannot be called before method "
+                    + $"'{typeof(DependencyInjectionBootstrapper<>).FullName}.{nameof(ConfigureServices)}' has been called."
+            );
         }
 
         return _serviceProvider.GetRequiredService<TService>();
@@ -40,14 +42,11 @@ public abstract class DependencyInjectionBootstrapper<TRootViewModel> : Bootstra
     /// Called when additional application services should be configured.
     /// </summary>
     /// <param name="services">The service collection for the service provider.</param>
-    protected virtual void ConfigureServices(IServiceCollection services)
-    {
-    }
+    protected virtual void ConfigureServices(IServiceCollection services) { }
 
     private void AddServices(IServiceCollection services)
     {
-        var appAssembly = GetType()
-            .Assembly;
+        var appAssembly = GetType().Assembly;
 
         services.AddTransient<ServiceFactory>(p => p.GetRequiredService);
 

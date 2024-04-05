@@ -8,8 +8,7 @@ public class CloseAsyncTests
     {
         await ScreenExtensions.TryCloseAsync(screen);
 
-        screen.State.Should()
-            .Be(ScreenState.Closed);
+        screen.State.Should().Be(ScreenState.Closed);
     }
 
     [Theory]
@@ -20,8 +19,7 @@ public class CloseAsyncTests
 
         await ScreenExtensions.TryCloseAsync(screen);
 
-        monitor.Should()
-            .Raise(nameof(Screen.Closed));
+        monitor.Should().Raise(nameof(Screen.Closed));
     }
 
     [Theory]
@@ -33,10 +31,8 @@ public class CloseAsyncTests
 
         await ScreenExtensions.TryCloseAsync(screen);
 
-        monitor.Should()
-            .Raise(nameof(Screen.Deactivated));
-        monitor.Should()
-            .Raise(nameof(Screen.Closed));
+        monitor.Should().Raise(nameof(Screen.Deactivated));
+        monitor.Should().Raise(nameof(Screen.Closed));
     }
 
     [Theory]
@@ -48,7 +44,6 @@ public class CloseAsyncTests
 
         await ScreenExtensions.TryCloseAsync(screen);
 
-        monitor.Should()
-            .NotRaise(nameof(Screen.Closed));
+        monitor.Should().NotRaise(nameof(Screen.Closed));
     }
 }

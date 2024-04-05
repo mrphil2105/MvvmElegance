@@ -17,8 +17,7 @@ public class Screen : ValidatingModelBase, IScreen
     /// </summary>
     public Screen()
     {
-        _displayName = GetType()
-            .FullName;
+        _displayName = GetType().FullName;
         _state = ScreenState.Inactive;
     }
 
@@ -87,8 +86,10 @@ public class Screen : ValidatingModelBase, IScreen
     }
 
     /// <inheritdoc />
-    public virtual async Task<bool> TryCloseAsync(bool? dialogResult = null,
-        CancellationToken cancellationToken = default)
+    public virtual async Task<bool> TryCloseAsync(
+        bool? dialogResult = null,
+        CancellationToken cancellationToken = default
+    )
     {
         // Check if the 'Screen' is owned by an 'IConductor'.
         if (Parent is IConductor conductor)

@@ -110,8 +110,7 @@ public partial class Conductor<T>
             /// <inheritdoc />
             protected override Task OnActivateAsync(CancellationToken cancellationToken = default)
             {
-                var tasks = Items.Select(i => ScreenExtensions.TryActivateAsync(i, cancellationToken))
-                    .ToList();
+                var tasks = Items.Select(i => ScreenExtensions.TryActivateAsync(i, cancellationToken)).ToList();
 
                 return Task.WhenAll(tasks);
             }
@@ -119,8 +118,7 @@ public partial class Conductor<T>
             /// <inheritdoc />
             protected override Task OnDeactivateAsync(CancellationToken cancellationToken = default)
             {
-                var tasks = Items.Select(i => ScreenExtensions.TryDeactivateAsync(i, cancellationToken))
-                    .ToList();
+                var tasks = Items.Select(i => ScreenExtensions.TryDeactivateAsync(i, cancellationToken)).ToList();
 
                 return Task.WhenAll(tasks);
             }
@@ -147,10 +145,8 @@ public partial class Conductor<T>
 
                         break;
                     case NotifyCollectionChangedAction.Replace:
-                        var oldItems = e.OldItems.Cast<T>()
-                            .ToList();
-                        var newItems = e.NewItems.Cast<T>()
-                            .ToList();
+                        var oldItems = e.OldItems.Cast<T>().ToList();
+                        var newItems = e.NewItems.Cast<T>().ToList();
 
                         // Items may be replaced with themselves, so prevent a close/cleanup followed by a reactivation.
                         await this.TryCloseAndCleanUpAsync(oldItems.Except(newItems), DisposeChildren);

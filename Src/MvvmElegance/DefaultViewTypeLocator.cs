@@ -34,17 +34,21 @@ public class DefaultViewTypeLocator : IViewTypeLocator
         }
 
         var viewName = viewModelName.Remove(viewModelName.Length - ViewModelSuffix.Length) + ViewSuffix;
-        var viewTypes = _viewAssembly.ExportedTypes.Where(t => t.Name == viewName)
-            .ToList();
+        var viewTypes = _viewAssembly.ExportedTypes.Where(t => t.Name == viewName).ToList();
 
         return viewTypes.Count switch
         {
-            0 => throw new ViewLocationException(
-                $"Unable to find a view type with name '{viewName}' for view model type '{modelType.FullName}'.",
-                modelType),
-            > 1 => throw new ViewLocationException(
-                $"More than one view type with name '{viewName}' was found for view model type " +
-                $"'{modelType.FullName}'.", modelType),
+            0
+                => throw new ViewLocationException(
+                    $"Unable to find a view type with name '{viewName}' for view model type '{modelType.FullName}'.",
+                    modelType
+                ),
+            > 1
+                => throw new ViewLocationException(
+                    $"More than one view type with name '{viewName}' was found for view model type "
+                        + $"'{modelType.FullName}'.",
+                    modelType
+                ),
             _ => viewTypes[0]
         };
     }

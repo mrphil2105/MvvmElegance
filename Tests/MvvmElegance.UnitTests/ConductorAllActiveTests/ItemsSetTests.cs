@@ -7,8 +7,10 @@ public class ItemsSetTests
 {
     [Theory]
     [AutoMoqData]
-    public void ItemsSet_DoesNotSetScreenParent_WhenGivenSameScreen(Mock<Screen> screenMock,
-        Conductor<Screen>.Collection.AllActive conductor)
+    public void ItemsSet_DoesNotSetScreenParent_WhenGivenSameScreen(
+        Mock<Screen> screenMock,
+        Conductor<Screen>.Collection.AllActive conductor
+    )
     {
         conductor.Items.Add(screenMock.Object);
         screenMock.Invocations.Clear();
@@ -20,8 +22,11 @@ public class ItemsSetTests
 
     [Theory]
     [AutoMoqData]
-    public void ItemsSet_CallsDispose_WhenDisposeChildrenIsTrue(Mock<IDisposable> disposableMock,
-        Conductor<IDisposable>.Collection.AllActive conductor, IDisposable newDisposable)
+    public void ItemsSet_CallsDispose_WhenDisposeChildrenIsTrue(
+        Mock<IDisposable> disposableMock,
+        Conductor<IDisposable>.Collection.AllActive conductor,
+        IDisposable newDisposable
+    )
     {
         conductor.Items.Add(disposableMock.Object);
 
@@ -32,10 +37,14 @@ public class ItemsSetTests
 
     [Theory]
     [AutoMoqData]
-    public void ItemsSet_DoesNotCallDispose_WhenDisposeChildrenIsFalse(Mock<IDisposable> disposableMock,
-        Conductor<IDisposable>.Collection.AllActive conductor, IDisposable newDisposable)
+    public void ItemsSet_DoesNotCallDispose_WhenDisposeChildrenIsFalse(
+        Mock<IDisposable> disposableMock,
+        Conductor<IDisposable>.Collection.AllActive conductor,
+        IDisposable newDisposable
+    )
     {
-        var property = conductor.GetType()
+        var property = conductor
+            .GetType()
             .GetProperty("DisposeChildren", BindingFlags.Instance | BindingFlags.NonPublic);
         property!.SetValue(conductor, false);
         conductor.Items.Add(disposableMock.Object);
@@ -47,8 +56,10 @@ public class ItemsSetTests
 
     [Theory]
     [AutoMoqData]
-    public void ItemsSet_DoesNotCallDispose_WhenGivenSameDisposable(Mock<IDisposable> disposableMock,
-        Conductor<IDisposable>.Collection.AllActive conductor)
+    public void ItemsSet_DoesNotCallDispose_WhenGivenSameDisposable(
+        Mock<IDisposable> disposableMock,
+        Conductor<IDisposable>.Collection.AllActive conductor
+    )
     {
         conductor.Items.Add(disposableMock.Object);
 

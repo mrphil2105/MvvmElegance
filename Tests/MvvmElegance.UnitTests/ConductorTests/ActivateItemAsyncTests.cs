@@ -8,8 +8,7 @@ public class ActivateItemAsyncTests
     {
         await conductor.ActivateItemAsync(item);
 
-        conductor.ActiveItem.Should()
-            .Be(item);
+        conductor.ActiveItem.Should().Be(item);
     }
 
     [Theory]
@@ -21,8 +20,7 @@ public class ActivateItemAsyncTests
 
         await conductor.ActivateItemAsync(conductor.ActiveItem);
 
-        conductor.ActiveItem!.State.Should()
-            .Be(ScreenState.Active);
+        conductor.ActiveItem!.State.Should().Be(ScreenState.Active);
     }
 
     [Theory]
@@ -31,8 +29,7 @@ public class ActivateItemAsyncTests
     {
         await conductor.ActivateItemAsync(conductor.ActiveItem);
 
-        conductor.ActiveItem!.State.Should()
-            .Be(ScreenState.Inactive);
+        conductor.ActiveItem!.State.Should().Be(ScreenState.Inactive);
     }
 
     [Theory]
@@ -43,8 +40,7 @@ public class ActivateItemAsyncTests
 
         await conductor.ActivateItemAsync(conductor.ActiveItem);
 
-        conductor.ActiveItem!.State.Should()
-            .Be(ScreenState.Active);
+        conductor.ActiveItem!.State.Should().Be(ScreenState.Active);
     }
 
     [Theory]
@@ -53,8 +49,7 @@ public class ActivateItemAsyncTests
     {
         await conductor.ActivateItemAsync(null);
 
-        conductor.ActiveItem.Should()
-            .BeNull();
+        conductor.ActiveItem.Should().BeNull();
     }
 
     [Theory]
@@ -65,8 +60,7 @@ public class ActivateItemAsyncTests
 
         await conductor.ActivateItemAsync(screen);
 
-        screen.State.Should()
-            .Be(ScreenState.Active);
+        screen.State.Should().Be(ScreenState.Active);
     }
 
     [Theory]
@@ -77,8 +71,7 @@ public class ActivateItemAsyncTests
 
         await conductor.ActivateItemAsync(screen);
 
-        screen.State.Should()
-            .Be(ScreenState.Inactive);
+        screen.State.Should().Be(ScreenState.Inactive);
     }
 
     [Theory]
@@ -87,7 +80,6 @@ public class ActivateItemAsyncTests
     {
         await conductor.ActivateItemAsync(screen);
 
-        screen.Parent.Should()
-            .Be(conductor);
+        screen.Parent.Should().Be(conductor);
     }
 }

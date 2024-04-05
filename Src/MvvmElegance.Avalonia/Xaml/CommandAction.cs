@@ -12,8 +12,10 @@ public class CommandAction : AvaloniaObject, ICommand
     /// <summary>
     /// A direct property specifying the action target.
     /// </summary>
-    public static readonly DirectProperty<CommandAction, object?> TargetProperty =
-        AvaloniaProperty.RegisterDirect<CommandAction, object?>(nameof(Target), o => o.Target, (a, t) => a.Target = t);
+    public static readonly DirectProperty<CommandAction, object?> TargetProperty = AvaloniaProperty.RegisterDirect<
+        CommandAction,
+        object?
+    >(nameof(Target), o => o.Target, (a, t) => a.Target = t);
 
     private object? _target;
 
@@ -42,30 +44,40 @@ public class CommandAction : AvaloniaObject, ICommand
     /// <exception cref="ArgumentOutOfRangeException">Value of parameter <paramref name="targetNullBehavior" /> or <paramref name="methodNotFoundBehavior" />
     /// is not defined in the enumeration.</exception>
     /// <exception cref="ArgumentNullException">Value of parameter <paramref name="element" /> or <paramref name="methodName" /> is <c>null</c>.</exception>
-    public CommandAction(AvaloniaObject element, string methodName, ActionUnavailableBehavior targetNullBehavior,
-        ActionUnavailableBehavior methodNotFoundBehavior)
+    public CommandAction(
+        AvaloniaObject element,
+        string methodName,
+        ActionUnavailableBehavior targetNullBehavior,
+        ActionUnavailableBehavior methodNotFoundBehavior
+    )
     {
         if (!Enum.IsDefined(typeof(ActionUnavailableBehavior), targetNullBehavior))
         {
-            throw new ArgumentOutOfRangeException(nameof(targetNullBehavior),
-                $"Value must be defined in the '{typeof(ActionUnavailableBehavior).FullName}' enumeration.");
+            throw new ArgumentOutOfRangeException(
+                nameof(targetNullBehavior),
+                $"Value must be defined in the '{typeof(ActionUnavailableBehavior).FullName}' enumeration."
+            );
         }
 
         if (!Enum.IsDefined(typeof(ActionUnavailableBehavior), methodNotFoundBehavior))
         {
-            throw new ArgumentOutOfRangeException(nameof(methodNotFoundBehavior),
-                $"Value must be defined in the '{typeof(ActionUnavailableBehavior).FullName}' enumeration.");
+            throw new ArgumentOutOfRangeException(
+                nameof(methodNotFoundBehavior),
+                $"Value must be defined in the '{typeof(ActionUnavailableBehavior).FullName}' enumeration."
+            );
         }
 
         Element = element ?? throw new ArgumentNullException(nameof(element));
         MethodName = methodName ?? throw new ArgumentNullException(nameof(methodName));
 
-        TargetNullBehavior = targetNullBehavior == ActionUnavailableBehavior.Default
-            ? CommandActionHelper.DefaultTargetNullBehavior
-            : targetNullBehavior;
-        MethodNotFoundBehavior = methodNotFoundBehavior == ActionUnavailableBehavior.Default
-            ? CommandActionHelper.DefaultMethodNotFoundBehavior
-            : methodNotFoundBehavior;
+        TargetNullBehavior =
+            targetNullBehavior == ActionUnavailableBehavior.Default
+                ? CommandActionHelper.DefaultTargetNullBehavior
+                : targetNullBehavior;
+        MethodNotFoundBehavior =
+            methodNotFoundBehavior == ActionUnavailableBehavior.Default
+                ? CommandActionHelper.DefaultMethodNotFoundBehavior
+                : methodNotFoundBehavior;
 
         this[!TargetProperty] = Element[!View.ActionTargetProperty];
     }
@@ -142,14 +154,17 @@ public class CommandAction : AvaloniaObject, ICommand
             else if (MethodNotFoundBehavior == ActionUnavailableBehavior.Throw)
             {
                 throw new ActionMethodNotFoundException(
-                    $"Action method '{Target.GetType().FullName}.{MethodName}' could not be found.");
+                    $"Action method '{Target.GetType().FullName}.{MethodName}' could not be found."
+                );
             }
         }
         else if (TargetNullBehavior == ActionUnavailableBehavior.Throw)
         {
-            throw new ActionTargetNullException($"Value of attached property '{typeof(View).FullName}." +
-                $"{nameof(View.ActionTargetProperty)}' on element of type '{Element.GetType().FullName}' " +
-                $"cannot be null (action method name: '{MethodName}').");
+            throw new ActionTargetNullException(
+                $"Value of attached property '{typeof(View).FullName}."
+                    + $"{nameof(View.ActionTargetProperty)}' on element of type '{Element.GetType().FullName}' "
+                    + $"cannot be null (action method name: '{MethodName}')."
+            );
         }
     }
 

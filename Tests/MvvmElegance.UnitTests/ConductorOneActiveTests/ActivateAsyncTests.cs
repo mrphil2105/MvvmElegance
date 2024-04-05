@@ -8,7 +8,6 @@ public class ActivateAsyncTests
     {
         await ScreenExtensions.TryActivateAsync(conductor);
 
-        conductor.ActiveItem!.State.Should()
-            .Be(ScreenState.Active);
+        conductor.ActiveItem!.State.Should().Be(ScreenState.Active);
     }
 }

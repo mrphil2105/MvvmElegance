@@ -30,8 +30,13 @@ public interface IViewService
     /// <param name="button">The button(s) to create and display.</param>
     /// <param name="kind">The kind of message box to create.</param>
     /// <returns>A task representing the asynchronous operation, with a message box result from the user action.</returns>
-    Task<MessageBoxResult> ShowMessageBoxAsync(object? ownerModel, string message, string caption,
-        MessageBoxButton button = MessageBoxButton.Ok, MessageBoxKind kind = MessageBoxKind.None);
+    Task<MessageBoxResult> ShowMessageBoxAsync(
+        object? ownerModel,
+        string message,
+        string caption,
+        MessageBoxButton button = MessageBoxButton.Ok,
+        MessageBoxKind kind = MessageBoxKind.None
+    );
 
     /// <summary>
     /// Displays a file dialog used to select a file path for a file to save.
@@ -41,8 +46,12 @@ public interface IViewService
     /// <param name="filter">A filter that filters file types displayed in the dialog.</param>
     /// <param name="title">The window title to display.</param>
     /// <returns>A task representing the asynchronous operation, with the selected file path.</returns>
-    Task<string?> ShowSaveFileDialogAsync(object? ownerModel, string fileName = "", string filter = "All Files|*.*",
-        string title = "");
+    Task<string?> ShowSaveFileDialogAsync(
+        object? ownerModel,
+        string fileName = "",
+        string filter = "All Files|*.*",
+        string title = ""
+    );
 
     /// <summary>
     /// Displays a file dialog used to select a file path for a file to open.
@@ -53,8 +62,13 @@ public interface IViewService
     /// <param name="multiSelect">A boolean indicating whether the user is allowed to pick multiple files.</param>
     /// <param name="title">The window title to display.</param>
     /// <returns>A task representing the asynchronous operation, with the selected file path.</returns>
-    Task<List<string>?> ShowOpenFileDialogAsync(object? ownerModel, string fileName = "",
-        string filter = "All Files|*.*", bool multiSelect = false, string title = "");
+    Task<List<string>?> ShowOpenFileDialogAsync(
+        object? ownerModel,
+        string fileName = "",
+        string filter = "All Files|*.*",
+        bool multiSelect = false,
+        string title = ""
+    );
 
     /// <summary>
     /// Displays a dialog used to select a folder path.

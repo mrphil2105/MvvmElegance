@@ -11,9 +11,7 @@ public class ActionExtension : MarkupExtension
     /// <summary>
     /// Initializes a new instance of the <see cref="ActionExtension" /> class.
     /// </summary>
-    public ActionExtension()
-    {
-    }
+    public ActionExtension() { }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="ActionExtension" /> class with the specified action method name.
@@ -48,7 +46,8 @@ public class ActionExtension : MarkupExtension
         if (MethodName == null)
         {
             throw new InvalidOperationException(
-                $"Value of property '{typeof(ActionExtension).FullName}.{nameof(MethodName)}' cannot be null.");
+                $"Value of property '{typeof(ActionExtension).FullName}.{nameof(MethodName)}' cannot be null."
+            );
         }
 
         var valueService = (IProvideValueTarget)serviceProvider.GetService(typeof(IProvideValueTarget));
@@ -56,18 +55,22 @@ public class ActionExtension : MarkupExtension
         if (valueService.TargetObject is not AvaloniaObject targetObject)
         {
             throw new InvalidOperationException(
-                $"Markup extension of type '{typeof(ActionExtension).FullName}' can only be used with objects of " +
-                $"type '{typeof(AvaloniaObject).FullName}'.");
+                $"Markup extension of type '{typeof(ActionExtension).FullName}' can only be used with objects of "
+                    + $"type '{typeof(AvaloniaObject).FullName}'."
+            );
         }
 
-        if (valueService.TargetProperty is AvaloniaProperty targetProperty &&
-            targetProperty.PropertyType == typeof(ICommand))
+        if (
+            valueService.TargetProperty is AvaloniaProperty targetProperty
+            && targetProperty.PropertyType == typeof(ICommand)
+        )
         {
             return new CommandAction(targetObject, MethodName, TargetNullBehavior, MethodNotFoundBehavior);
         }
 
         throw new InvalidOperationException(
-            $"Markup extension of type '{typeof(ActionExtension).FullName}' can only be used with properties of " +
-            $"type '{typeof(ICommand).FullName}'.");
+            $"Markup extension of type '{typeof(ActionExtension).FullName}' can only be used with properties of "
+                + $"type '{typeof(ICommand).FullName}'."
+        );
     }
 }

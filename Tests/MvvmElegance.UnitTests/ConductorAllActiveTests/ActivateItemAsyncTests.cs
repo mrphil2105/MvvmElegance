@@ -4,28 +4,30 @@ public class ActivateItemAsyncTests
 {
     [Theory]
     [AutoData]
-    public async Task ActivateItemAsync_ActivatesScreen_WhenActive(Conductor<Screen>.Collection.AllActive conductor,
-        Screen screen)
+    public async Task ActivateItemAsync_ActivatesScreen_WhenActive(
+        Conductor<Screen>.Collection.AllActive conductor,
+        Screen screen
+    )
     {
         await ScreenExtensions.TryActivateAsync(conductor);
 
         await conductor.ActivateItemAsync(screen);
 
-        screen.State.Should()
-            .Be(ScreenState.Active);
+        screen.State.Should().Be(ScreenState.Active);
     }
 
     [Theory]
     [AutoData]
-    public async Task ActivateItemAsync_DeactivatesScreen_WhenInactive(Conductor<Screen>.Collection.AllActive conductor,
-        Screen screen)
+    public async Task ActivateItemAsync_DeactivatesScreen_WhenInactive(
+        Conductor<Screen>.Collection.AllActive conductor,
+        Screen screen
+    )
     {
         await ScreenExtensions.TryActivateAsync(screen);
 
         await conductor.ActivateItemAsync(screen);
 
-        screen.State.Should()
-            .Be(ScreenState.Inactive);
+        screen.State.Should().Be(ScreenState.Inactive);
     }
 
     [Theory]
@@ -34,18 +36,18 @@ public class ActivateItemAsyncTests
     {
         await conductor.ActivateItemAsync(item);
 
-        conductor.Items.Should()
-            .Contain(item);
+        conductor.Items.Should().Contain(item);
     }
 
     [Theory]
     [AutoData]
-    public async Task ActivateItemAsync_SetsScreenParent(Conductor<Screen>.Collection.AllActive conductor,
-        Screen screen)
+    public async Task ActivateItemAsync_SetsScreenParent(
+        Conductor<Screen>.Collection.AllActive conductor,
+        Screen screen
+    )
     {
         await conductor.ActivateItemAsync(screen);
 
-        screen.Parent.Should()
-            .Be(conductor);
+        screen.Parent.Should().Be(conductor);
     }
 }

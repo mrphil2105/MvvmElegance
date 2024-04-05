@@ -16,8 +16,9 @@ public abstract class AutofacBootstrapper<TRootViewModel> : BootstrapperBase<TRo
         if (_container == null)
         {
             throw new InvalidOperationException(
-                $"Method '{typeof(AutofacBootstrapper<>).FullName}.{nameof(GetService)}' cannot be called before " +
-                $"method '{typeof(AutofacBootstrapper<>).FullName}.{nameof(ConfigureServices)}' has been called.");
+                $"Method '{typeof(AutofacBootstrapper<>).FullName}.{nameof(GetService)}' cannot be called before "
+                    + $"method '{typeof(AutofacBootstrapper<>).FullName}.{nameof(ConfigureServices)}' has been called."
+            );
         }
 
         return _container.Resolve<TService>();
@@ -38,9 +39,7 @@ public abstract class AutofacBootstrapper<TRootViewModel> : BootstrapperBase<TRo
     /// Called when additional application services should be configured.
     /// </summary>
     /// <param name="builder">The builder for the Autofac container.</param>
-    protected virtual void ConfigureServices(ContainerBuilder builder)
-    {
-    }
+    protected virtual void ConfigureServices(ContainerBuilder builder) { }
 
     /// <inheritdoc />
     public override void Dispose()

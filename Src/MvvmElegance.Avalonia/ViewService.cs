@@ -20,8 +20,9 @@ public partial class ViewService : IViewService
         if (!Application.Current!.TryFindResource(View.ViewManagerResourceKey, out _viewManager!))
         {
             throw new InvalidOperationException(
-                $"Instances of '{typeof(ViewService).FullName}' cannot be created before method " +
-                $"'{typeof(BootstrapperBase<>).FullName}.{nameof(IBootstrapper.Initialize)}' has been called.");
+                $"Instances of '{typeof(ViewService).FullName}' cannot be created before method "
+                    + $"'{typeof(BootstrapperBase<>).FullName}.{nameof(IBootstrapper.Initialize)}' has been called."
+            );
         }
     }
 
@@ -78,16 +79,17 @@ public partial class ViewService : IViewService
 
         if (view is not Window window)
         {
-            throw new InvalidOperationException("The associated view was of type " +
-                $"'{view.GetType().FullName}', but must be of type '{typeof(Window).FullName}'.");
+            throw new InvalidOperationException(
+                "The associated view was of type "
+                    + $"'{view.GetType().FullName}', but must be of type '{typeof(Window).FullName}'."
+            );
         }
 
         Window? owner = null;
 
         if (ownerModel != null)
         {
-            owner = _viewManager.GetWindowConductor(ownerModel)
-                .Window;
+            owner = _viewManager.GetWindowConductor(ownerModel).Window;
         }
         else if (isDialog)
         {
