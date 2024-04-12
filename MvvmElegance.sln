@@ -1,18 +1,18 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Src", "Src", "{460987AD-1C40-4936-B264-955AA79CBB12}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{460987AD-1C40-4936-B264-955AA79CBB12}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{E8ECD26F-1923-4367-AC1B-C1CF6333343C}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{E8ECD26F-1923-4367-AC1B-C1CF6333343C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvvmElegance", "Src\MvvmElegance\MvvmElegance.csproj", "{D1F3A4C5-32A1-4615-8CD1-CD43C464A8A3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvvmElegance", "src\MvvmElegance\MvvmElegance.csproj", "{D1F3A4C5-32A1-4615-8CD1-CD43C464A8A3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvvmElegance.UnitTests", "Tests\MvvmElegance.UnitTests\MvvmElegance.UnitTests.csproj", "{7B31FD11-5411-4AA6-B240-E5B1FEEC321B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvvmElegance.UnitTests", "tests\MvvmElegance.UnitTests\MvvmElegance.UnitTests.csproj", "{7B31FD11-5411-4AA6-B240-E5B1FEEC321B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvvmElegance.Avalonia", "Src\MvvmElegance.Avalonia\MvvmElegance.Avalonia.csproj", "{11321583-DB2A-479E-9126-AB7364C33823}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvvmElegance.Avalonia", "src\MvvmElegance.Avalonia\MvvmElegance.Avalonia.csproj", "{11321583-DB2A-479E-9126-AB7364C33823}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvvmElegance.Avalonia.Autofac", "Src\MvvmElegance.Avalonia.Autofac\MvvmElegance.Avalonia.Autofac.csproj", "{E2835947-EB7A-41D4-B2C1-E4AF9EF09A81}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvvmElegance.Avalonia.Autofac", "src\MvvmElegance.Avalonia.Autofac\MvvmElegance.Avalonia.Autofac.csproj", "{E2835947-EB7A-41D4-B2C1-E4AF9EF09A81}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvvmElegance.Avalonia.DependencyInjection", "Src\MvvmElegance.Avalonia.DependencyInjection\MvvmElegance.Avalonia.DependencyInjection.csproj", "{A8A1A359-D86B-40CB-BEEF-8B6CB7E6EF58}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvvmElegance.Avalonia.DependencyInjection", "src\MvvmElegance.Avalonia.DependencyInjection\MvvmElegance.Avalonia.DependencyInjection.csproj", "{A8A1A359-D86B-40CB-BEEF-8B6CB7E6EF58}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
