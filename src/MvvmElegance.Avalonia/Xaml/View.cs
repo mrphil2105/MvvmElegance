@@ -1,3 +1,4 @@
+using Avalonia.Reactive;
 using MvvmElegance.Internal;
 
 namespace MvvmElegance.Xaml;
@@ -11,8 +12,8 @@ public static class View
 
     static View()
     {
-        ModelProperty.Changed.Subscribe(OnModelChanged);
-        ActionTargetProperty.Changed.Subscribe(_ => { });
+        ModelProperty.Changed.Subscribe(new AnonymousObserver<AvaloniaPropertyChangedEventArgs>(OnModelChanged));
+        ActionTargetProperty.Changed.Subscribe(new AnonymousObserver<AvaloniaPropertyChangedEventArgs>(delegate { }));
     }
 
     /// <summary>
