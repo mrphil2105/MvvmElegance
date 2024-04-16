@@ -1,19 +1,26 @@
-<Window x:Class="MvvmElegance.Windows.MessageBoxWindow"
-        xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d"
-        Width="350" SizeToContent="Height" CanResize="False"
-        WindowStartupLocation="CenterScreen" ShowInTaskbar="False">
+<Window
+    x:Class="MvvmElegance.Windows.MessageBoxWindow"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Width="350"
+    CanResize="False"
+    ShowInTaskbar="False"
+    SizeToContent="Height"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
     <Window.Styles>
         <StyleInclude Source="avares://Avalonia.Themes.Default/DefaultTheme.xaml" />
         <StyleInclude Source="avares://Avalonia.Themes.Default/Accents/BaseLight.xaml" />
     </Window.Styles>
-
     <DockPanel>
-        <Border DockPanel.Dock="Bottom" Background="#EEEEEE">
-            <StackPanel Name="Buttons" HorizontalAlignment="Right" Orientation="Horizontal" Margin="4">
+        <Border DockPanel.Dock="Bottom">
+            <StackPanel
+                Name="Buttons"
+                Margin="4"
+                HorizontalAlignment="Right"
+                Orientation="Horizontal">
                 <StackPanel.Styles>
                     <Style Selector="Button">
                         <Setter Property="Margin" Value="4" />
@@ -22,7 +29,9 @@
                 </StackPanel.Styles>
             </StackPanel>
         </Border>
-
-        <TextBlock Name="Message" Margin="16" TextWrapping="Wrap" />
+        <TextBlock
+            Name="Message"
+            Margin="16"
+            TextWrapping="Wrap" />
     </DockPanel>
 </Window>
