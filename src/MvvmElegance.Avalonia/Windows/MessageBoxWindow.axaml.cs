@@ -2,7 +2,7 @@ using Avalonia.Markup.Xaml;
 
 namespace MvvmElegance.Windows;
 
-internal class MessageBoxWindow : Window
+internal partial class MessageBoxWindow : Window
 {
     public MessageBoxWindow()
     {
