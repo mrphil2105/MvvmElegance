@@ -11,8 +11,7 @@
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <Window.Styles>
-        <StyleInclude Source="avares://Avalonia.Themes.Default/DefaultTheme.xaml" />
-        <StyleInclude Source="avares://Avalonia.Themes.Default/Accents/BaseLight.xaml" />
+        <SimpleTheme />
     </Window.Styles>
     <DockPanel>
         <Border DockPanel.Dock="Bottom">
