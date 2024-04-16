@@ -169,16 +169,14 @@ public class CommandAction : AvaloniaObject, ICommand
     }
 
     /// <inheritdoc />
-    protected override void OnPropertyChanged<T>(AvaloniaPropertyChangedEventArgs<T> e)
+    protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs e)
     {
         if (e.Property != TargetProperty)
         {
             return;
         }
 
-        var newValue = e.NewValue.Value;
-        var oldValue = e.OldValue.Value;
-
+        var (oldValue, newValue) = e.GetOldAndNewValue<object>();
         var action = (CommandAction)e.Sender;
         action.UpdateMethodFunc(newValue);
         action.OnTargetChanged(oldValue, newValue);
