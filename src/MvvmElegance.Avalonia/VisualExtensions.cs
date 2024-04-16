@@ -14,8 +14,8 @@ public static class VisualExtensions
     /// <typeparam name="TChild">The type of child to get.</typeparam>
     /// <returns>A collection containing the visual children of the specified visual.</returns>
     /// <exception cref="ArgumentNullException">Value of parameter <paramref name="visual" /> is <c>null</c>.</exception>
-    public static IEnumerable<TChild> GetVisualChildren<TChild>(this IVisual visual)
-        where TChild : IVisual
+    public static IEnumerable<TChild> GetVisualChildren<TChild>(this Visual visual)
+        where TChild : Visual
     {
         if (visual is null)
         {
@@ -42,7 +42,7 @@ public static class VisualExtensions
     /// <param name="visual">The visual to get the parent window of.</param>
     /// <returns>The parent window of the visual or <c>null</c> if not found.</returns>
     /// <exception cref="InvalidOperationException">The visual root is not of type <see cref="Window" />.</exception>
-    public static Window? GetWindow(this IVisual visual)
+    public static Window? GetWindow(this Visual visual)
     {
         var visualRoot = visual.GetVisualRoot();
 
